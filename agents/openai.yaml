@@ -1,0 +1,6 @@
+interface:
+  display_name: "短剧海报设计"
+  short_description: "生成短剧海报方向、提示词、改图指令和质检清单"
+  default_prompt: "Use $short-drama-poster to turn this short-drama script into three poster directions and image-generation prompts."
+policy:
+  allow_implicit_invocation: true
