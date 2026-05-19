@@ -11,6 +11,7 @@ Use this checklist before final delivery or when reviewing generated posters.
 - 商业海报质感：不是普通照片、截图、PPT封面、廉价拼贴或网感滤镜。
 - 角色一致性：如果有参考照，脸型、年龄、发型、气质不能漂移。
 - 风格模式一致：不能一半写实、一半卡通，或人物与背景渲染语言割裂。
+- 如果做带字版，标题必须可读且不遮挡主角关键五官。
 
 ## Composition Checks
 
@@ -36,6 +37,16 @@ Use this checklist before final delivery or when reviewing generated posters.
 - 动漫卡通：五官比例、线条风格、发型轮廓必须统一，不能混入写实皮肤语言。
 - 类3D动漫：人物要有三维体积和材质高光，但不能变成玩偶、手办或廉价手游宣传页。
 
+## Typography Checks
+
+- 主标题在缩略图下仍能读清。
+- 标题位置与标题安全区一致。
+- 标题不能压住主角眼睛、嘴部、核心道具。
+- 标题风格与题材一致，不出现错字和乱码。
+- 默认只出现剧名；副标题、slogan、平台角标必须是用户主动要求才加。
+- 主标题与副标题层级明确，不要同等重量。
+- 字体特效不能比人物关系更抢眼。
+
 ## Common Fixes
 
 - 人太小：要求中近景/半身/膝上构图，人物占比提高到 65%-80%。
@@ -45,4 +56,5 @@ Use this checklist before final delivery or when reviewing generated posters.
 - 群像像合照：压缩次要角色数量，拉开前后层次，重新设定主角最亮最大。
 - 类3D动漫太像手游：减少悬浮粒子、廉价紫蓝特效和过度金属高光，强调高级 key visual 质感。
 - 标题区脏：指定上方或侧边留出干净暗部/浅色区域，不放脸和强纹理。
+- 带字版太乱：先做无字底图，再单独写标题层说明；默认只保留剧名，缩短标题，减弱发光和描边。
 - 角色不像：减少参考图数量，绑定角色名，强调身份一致性优先于风格。

@@ -11,6 +11,7 @@ This skill is designed for:
 - JSON structured prompt generation
 - whole-image redraw instructions
 - realistic, semi-realistic illustration, anime/cartoon, and stylized 3D anime poster styles
+- title-rendered final poster versions with Chinese typography guidance
 - single-character, dual-character, triangle, and multi-character cast staging
 
 ## What It Solves
@@ -30,6 +31,7 @@ This skill turns a script, synopsis, character references, or an existing poster
 
 - Generate 3 distinct poster directions before final prompt writing
 - Choose between realistic, semi-realistic, anime/cartoon, and 3D anime modes
+- Support title-free poster bases and title-rendered final poster versions
 - Support 1-person, 2-person, 3-person, 4-6 person, and large-cast poster logic
 - Produce Chinese complete prompts and JSON structured prompts
 - Handle whole-image redraw requests while preserving identity and composition constraints
@@ -43,10 +45,14 @@ This skill turns a script, synopsis, character references, or an existing poster
 - [references/prompt-spec.md](/Users/edy/Documents/GitHub/short-drama-poster/references/prompt-spec.md): output format spec
 - [references/quality-checklist.md](/Users/edy/Documents/GitHub/short-drama-poster/references/quality-checklist.md): review rules
 - [references/style-modes.md](/Users/edy/Documents/GitHub/short-drama-poster/references/style-modes.md): style branching rules
+- [references/title-design.md](/Users/edy/Documents/GitHub/short-drama-poster/references/title-design.md): title-rendering and typography rules
+- [references/font-library.md](/Users/edy/Documents/GitHub/short-drama-poster/references/font-library.md): reverse-engineered Chinese title families and material directions
+- [references/title-fewshots.md](/Users/edy/Documents/GitHub/short-drama-poster/references/title-fewshots.md): stable rendered-title few-shot patterns
 - [examples/realistic-urban-revenge.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/realistic-urban-revenge.md): realistic example
 - [examples/semi-realistic-fantasy-romance.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/semi-realistic-fantasy-romance.md): semi-realistic example
 - [examples/anime-family-secret.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/anime-family-secret.md): anime/cartoon example
 - [examples/3d-anime-ensemble.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/3d-anime-ensemble.md): stylized 3D anime example
+- [examples/title-rendered-urban-power.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/title-rendered-urban-power.md): title-rendered poster example
 
 ## Installation
 
@@ -71,6 +77,7 @@ Use the skill when asking for:
 - multi-character poster staging
 - Chinese poster JSON prompt structures
 - anime or 3D anime short-drama poster treatment
+- title-rendered poster generation
 - whole-image redraw instructions for an existing poster
 
 Typical request:
@@ -96,6 +103,8 @@ Standard output should include:
 5. negative constraints
 6. quality checklist
 
+If the user explicitly wants a title-rendered poster, the output should also include title-layer guidance or a direct title-rendered extension.
+
 ## Style Modes
 
 Supported modes:
@@ -111,5 +120,6 @@ The style branch matters because the skill should not force realistic skin or fi
 
 - Default language is Chinese
 - Default image assumption is title-free poster base
+- Title-rendered posters are supported when explicitly requested, and the default rendered-text version should contain only the main drama title unless extra copy is explicitly requested
 - Actor identity consistency takes priority over visual experimentation when reference photos exist
 - In multi-character posters, not every face should receive equal attention

@@ -11,6 +11,7 @@
 - JSON 结构化提示词生成
 - 基于现有海报的整图重绘指令
 - 写实、半写实插画、动漫卡通、类 3D 动漫等风格分支
+- 支持带标题成图与中文字体排版规则
 - 单人、双人、三人、多角色群像的构图与主次控制
 
 ## 它解决什么问题
@@ -30,6 +31,7 @@
 
 - 先产出 3 个明显不同的海报方向，再写最终 prompt
 - 支持 `写实电影感 / 半写实插画 / 动漫卡通 / 类3D动漫`
+- 支持“无字底图”和“直接带标题成图”两种输出方式
 - 支持 `1人 / 2人 / 3人 / 4-6人 / 大群像` 的不同构图逻辑
 - 输出中文完整提示词和 JSON 结构化提示词
 - 支持“保留人物关系，整图重做”的改图型需求
@@ -43,10 +45,14 @@
 - [references/prompt-spec.md](/Users/edy/Documents/GitHub/short-drama-poster/references/prompt-spec.md)：输出格式规范
 - [references/quality-checklist.md](/Users/edy/Documents/GitHub/short-drama-poster/references/quality-checklist.md)：验收与质检规则
 - [references/style-modes.md](/Users/edy/Documents/GitHub/short-drama-poster/references/style-modes.md)：风格模式与多人规则
+- [references/title-design.md](/Users/edy/Documents/GitHub/short-drama-poster/references/title-design.md)：带标题成图与字体规则
+- [references/font-library.md](/Users/edy/Documents/GitHub/short-drama-poster/references/font-library.md)：中文标题字体家族、字形分类与材质方向
+- [references/title-fewshots.md](/Users/edy/Documents/GitHub/short-drama-poster/references/title-fewshots.md)：带字海报稳定输出样板
 - [examples/realistic-urban-revenge.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/realistic-urban-revenge.md)：写实示例
 - [examples/semi-realistic-fantasy-romance.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/semi-realistic-fantasy-romance.md)：半写实插画示例
 - [examples/anime-family-secret.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/anime-family-secret.md)：动漫卡通示例
 - [examples/3d-anime-ensemble.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/3d-anime-ensemble.md)：类 3D 动漫示例
+- [examples/title-rendered-urban-power.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/title-rendered-urban-power.md)：带标题成图示例
 
 ## 安装方式
 
@@ -70,6 +76,7 @@ cp -R /absolute/path/to/short-drama-poster ~/.codex/skills/short-drama-poster
 - “把这个剧情梗概转成海报 prompt”
 - “这个短剧要做双人/三人/群像海报”
 - “我要卡通版 / 动漫版 / 类 3D 动漫版”
+- “我要直接带字的短剧封面”
 - “根据这张海报整图重绘，保留人物关系”
 - “给我一个中文完整 prompt 和 JSON”
 
@@ -96,6 +103,8 @@ Use short-drama-poster. Make it a 3D anime commercial poster with a strong two-p
 5. 负向约束
 6. 质检清单
 
+如果用户明确要“带标题成图”，输出里还应包含标题层说明或直接带字版本扩展。
+
 ## 支持的风格模式
 
 - 写实商业海报
@@ -109,5 +118,6 @@ Use short-drama-poster. Make it a 3D anime commercial poster with a strong two-p
 
 - 默认输出语言为中文
 - 默认目标图像是“无标题文字的海报底图”
+- 用户明确要求时，也支持直接输出带标题成图规则，且默认只放剧名，副标题等附加文字需要主动要求
 - 如果有演员参考图，身份一致性优先于风格创意
 - 多人海报里不应该让每张脸都拥有同等视觉权重

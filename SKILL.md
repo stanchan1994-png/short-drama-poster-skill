@@ -1,6 +1,6 @@
 ---
 name: short-drama-poster
-description: End-to-end Chinese short-drama poster workflow for AI agents. Use when creating or reviewing short-drama, web drama, micro drama, romance/revenge/urban/fantasy poster directions, multi-character compositions, realistic/anime/cartoon/3D-anime poster styles, image-generation prompts, JSON prompt structures, character-consistency rules, title-safe-area guidance, whole-image redraw instructions, or poster quality checklists for Chinese users and AI image platforms.
+description: End-to-end Chinese short-drama poster workflow for AI agents. Use when creating or reviewing short-drama, web drama, micro drama, romance/revenge/urban/fantasy poster directions, multi-character compositions, realistic/anime/cartoon/3D-anime poster styles, title-rendered poster versions, image-generation prompts, JSON prompt structures, character-consistency rules, title-safe-area guidance, whole-image redraw instructions, or poster quality checklists for Chinese users and AI image platforms.
 ---
 
 # Short Drama Poster
@@ -13,6 +13,7 @@ The default mode is commercial short-drama realism, but this skill also supports
 - semi-realistic illustration posters
 - anime/cartoon posters
 - stylized 3D anime posters with commercial key-art polish
+- title-rendered poster versions with Chinese typography guidance
 
 ## Core Workflow
 
@@ -20,10 +21,14 @@ The default mode is commercial short-drama realism, but this skill also supports
 2. Extract visual roles: protagonist, opponent/love interest, supporting power figure, child/family member, hidden antagonist.
 3. Decide the visual mode first: realistic, semi-realistic illustration, anime/cartoon, or 3D anime.
 4. Produce **3 distinct poster directions** before writing final prompts. Make the directions meaningfully different in composition, emotional temperature, commercial hook, and if useful, style execution.
-5. After a direction is chosen, produce a **Chinese complete prompt** and a **JSON structured prompt** for image platforms.
-6. Keep the image as a poster base: no rendered title text, no logo, no watermark, and a clean title-safe area.
-7. If the user provides an existing poster, treat the task as whole-image redraw unless they explicitly ask for local masking. Preserve the requested identity/composition/style constraints and generate new redraw instructions.
-8. Finish with a short quality checklist and concrete fixes.
+5. Decide whether the output is a title-free base or a title-rendered final poster.
+6. After a direction is chosen, produce a **Chinese complete prompt** and a **JSON structured prompt** for image platforms.
+7. Keep the image title-free by default: no rendered title text, no logo, no watermark, and a clean title-safe area.
+8. If the user explicitly wants a poster with title text, generate both the poster-base prompt and a title-layer or title-rendered version with typography guidance. The default title-rendered version should contain only the main drama title unless the user explicitly asks for subtitle, slogan, platform line, or extra copy.
+9. If title rendering is requested, auto-match a title glyph family from `references/font-library.md` based on genre, relationship tone, and style mode before assigning material treatment.
+10. Material treatment for title-rendered posters must be derived from the poster look itself: same glyph family can render as silver metal, warm gold foil, dry-brush white, enamel, glow, or premium 3D highlight depending on story type.
+11. If the user provides an existing poster, treat the task as whole-image redraw unless they explicitly ask for local masking. Preserve the requested identity/composition/style constraints and generate new redraw instructions.
+12. Finish with a short quality checklist and concrete fixes.
 
 ## What To Read
 
@@ -31,6 +36,9 @@ The default mode is commercial short-drama realism, but this skill also supports
 - For exact output formats, read `references/prompt-spec.md`.
 - For review and acceptance criteria, read `references/quality-checklist.md`.
 - For style branching, read `references/style-modes.md`.
+- For title rendering rules, read `references/title-design.md`.
+- For title glyph-family auto-matching, read `references/font-library.md`.
+- For stable rendered-title output patterns, read `references/title-fewshots.md`.
 
 ## Default Output Shape
 
@@ -41,6 +49,16 @@ For a normal "make a poster prompt" request, output:
 3. **Chinese complete prompt** for the recommended direction.
 4. **JSON structured prompt** using Chinese values while preserving JSON syntax.
 5. **Negative constraints** and quality checklist.
+
+For a "带标题成品图" or "直接做带字海报" request, output:
+
+1. **3 poster directions** with title-safe-area reasoning.
+2. **Recommended direction**.
+3. **Poster-base Chinese prompt**.
+4. **Title-rendered version** or title-layer instructions.
+5. **JSON structured prompt**.
+6. **Typography notes**: glyph family, material treatment, title style, placement, subtitle, billing, and avoidance rules.
+7. **Quality checklist**.
 
 For an "edit/redraw this poster" request, output:
 
@@ -57,6 +75,8 @@ For an "edit/redraw this poster" request, output:
 - For multi-character posters, do not distribute attention evenly. The main role must stay largest, clearest, and visually brightest.
 - Do not generate visible text inside the image unless the user explicitly requests title rendering.
 - Preserve a title-safe area even when no title will be added by the image model.
+- If title rendering is requested, title readability must never destroy face readability or relationship clarity.
+- If title rendering is requested, do not leave the title family unspecified. Always choose a base glyph family first, then assign a surface treatment that matches the poster style.
 - Avoid cheap cover aesthetics: collage clutter, random neon gradients, over-smoothed AI skin, tiny faces, bad hands, unreadable relationships, platform UI marks, fake logos, and watermark-like artifacts.
 - If character photos are provided, prioritize identity consistency over style creativity.
 - If the requested style is anime, cartoon, or 3D anime, replace realism-specific language with line, shape, material, rendering, and silhouette language instead of forcing photo-real skin rules.

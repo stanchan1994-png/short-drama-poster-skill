@@ -14,6 +14,12 @@ Collect only what is needed:
 
 If information is missing, proceed with a labeled assumption instead of blocking. Ask only when identity mapping or output type is impossible to infer.
 
+If the user asks for a complete poster, determine whether they mean:
+
+- clean title-free base
+- title-safe base for later design
+- directly rendered title poster
+
 When the user says "偏卡通", "动漫", "二次元", "类 3D 动漫", "像游戏 key visual", or "不要写实", switch out of realistic mode explicitly instead of silently keeping cinematic realism.
 
 ## 2. Story Hook Analysis
@@ -52,6 +58,7 @@ Each direction must include:
 - Scene and props.
 - Lighting and atmosphere.
 - Title-safe area position.
+- If relevant, title rendering suitability.
 - Why this direction sells the drama.
 
 ## 4. Build Poster Base Prompt
@@ -73,6 +80,29 @@ If style mode is not realistic:
 - remove realism-only skin language unless the user wants semi-realistic treatment
 - keep character hierarchy readable at thumbnail size
 - keep the poster commercial, not like a random fan art screenshot
+
+## 4b. Build Title-Rendered Version
+
+Use this only when the user explicitly wants title text inside the final poster.
+
+Include:
+
+- title glyph family
+- title material treatment
+- exact title placement
+- title size hierarchy
+- font style direction
+- subtitle rule if needed
+- avoidance rules so title does not block faces
+- anti-garbled-character language
+
+Recommended practice:
+
+- first write a clean poster-base prompt
+- then write a short title-rendering extension
+- if possible, treat title as a separate compositing layer
+- select the title glyph family before selecting material effects
+- keep glyph family stable and let material change with poster tone
 
 ## 5. Character Consistency
 
@@ -117,3 +147,33 @@ If title rendering is required:
 - Avoid over-complex metallic effects that harm legibility.
 - Separate title prompt from poster base prompt where possible.
 - Recompose title and base after selecting the best base.
+- Auto-match the base glyph family first from the font library.
+- Then choose material treatment according to the poster look.
+- Specify whether the title belongs to a hard-edged metallic family, power-calligraphy family, palace gold family, blade-written emotional family, elegant display family, or rounded comedy family.
+- Explicitly forbid乱码, broken strokes, wrong Chinese characters, and face overlap.
+
+### 7a. Automatic Glyph-Family Matching
+
+When the user asks for a title-rendered poster and does not name a font directly, match automatically:
+
+- hard urban revenge / dragon king / bodyguard / war-god stories:
+  - prefer `Hard-Edge Battle-Damaged Metallic Display`
+- authority / king-return / overpowering male lead / mythic dominance:
+  - prefer `Power-Calligraphy Stone-Metal Title`
+- palace intrigue / aristocratic costume / royal heroine rise:
+  - prefer `Palace Gold Vertical Title` or the palace branch of the power-calligraphy family
+- dark romance / blackening / chase-wife crematorium / emotional reversal:
+  - prefer `Blade-Written Emotional Hand Title`
+- luxury suspense / cold high-end female drama / fate-heavy elegant stories:
+  - prefer `High-Contrast Elegant Display`
+- light comedy / anti-trope romance / rounded sweet urban stories:
+  - prefer `Retro Rounded Urban Comedy Display`
+
+Then assign material by poster finish:
+
+- cold realistic action: silver metal, scratched steel, restrained bevel
+- premium costume: warm gold foil, shallow emboss, refined highlight
+- emotional hand-written posters: mostly dry-brush white or ink-like bright title, not heavy metal
+- luxury cool-tone drama: thin silver edge, cold glow, restrained high-end finish
+- comedy and light romance: cream, enamel, soft gloss, retro sign-paint feeling
+- stylized 3D anime: premium highlight, layered glow, controlled dimensional finish, never toy-like
