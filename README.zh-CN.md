@@ -53,6 +53,7 @@
 - [examples/anime-family-secret.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/anime-family-secret.md)：动漫卡通示例
 - [examples/3d-anime-ensemble.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/3d-anime-ensemble.md)：类 3D 动漫示例
 - [examples/title-rendered-urban-power.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/title-rendered-urban-power.md)：带标题成图示例
+- [examples/prompt-cleanliness-bad-vs-good.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/prompt-cleanliness-bad-vs-good.md)：坏词与干净投喂词对照示例
 
 ## 安装方式
 
@@ -99,9 +100,10 @@ Use short-drama-poster. Make it a 3D anime commercial poster with a strong two-p
 1. 3 个海报方向
 2. 推荐方向及理由
 3. 中文完整提示词
-4. JSON 结构化提示词
-5. 负向约束
-6. 质检清单
+4. 平台投喂版 Prompt
+5. 工作流 JSON（不要直接用于生图平台）
+6. 负向约束
+7. 质检清单
 
 如果用户明确要“带标题成图”，输出里还应包含标题层说明或直接带字版本扩展。
 
@@ -119,5 +121,6 @@ Use short-drama-poster. Make it a 3D anime commercial poster with a strong two-p
 - 默认输出语言为中文
 - 默认目标图像是“无标题文字的海报底图”
 - 用户明确要求时，也支持直接输出带标题成图规则，且默认只放剧名，副标题等附加文字需要主动要求
-- 如果有演员参考图，身份一致性优先于风格创意
+- 如果有角色三视图，设定一致性优先于风格创意
 - 多人海报里不应该让每张脸都拥有同等视觉权重
+- 平台投喂版 Prompt 必须是纯画面指令，不能混入“你给的”“如果你要”“我可以再给你一版”这类对话污染

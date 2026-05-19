@@ -15,6 +15,35 @@
 - 适合原因：<为什么这个方向更能卖剧>
 ```
 
+## Task Judgment and Assumptions
+
+Use this block before directions when it improves execution stability.
+
+```markdown
+任务判断：
+- 输出类型：<无字底图 / 带字成图 / 整图重绘>
+- 风格模式：<写实电影感 / 半写实插画 / 动漫卡通 / 类3D动漫>
+
+假设：
+- <只写必要假设；若无可省略>
+```
+
+If character turnarounds exist, add:
+
+```markdown
+参考图绑定：
+- <三视图A> -> <角色名>
+- <三视图B> -> <角色名>
+```
+
+If style/composition references exist, also add:
+
+```markdown
+风格参考提取：
+- <风格参考图1>：继承<构图 / 景别 / 光影 / 色调 / 留白位置>
+- 排除继承：<图中文字 / 人物长相 / 服装细节 / 道具剧情 / logo / 水印>
+```
+
 ## Chinese Complete Prompt
 
 Use one paragraph. Example structure:
@@ -23,56 +52,153 @@ Use one paragraph. Example structure:
 中文短剧竖版商业海报底图，<风格模式>，人物关系一眼可读。画面为<构图类型>，<主角>占据画面<比例>，<对手/恋人/配角>位于<位置>形成<关系张力>。场景设置在<地点/时间>，可见<关键道具/空间元素>，背景只保留服务剧情的元素。镜头为<景别和角度>，人物脸部清晰，表情体现<情绪>。光影采用<光线方案>，整体氛围<情绪词>。如果是写实或半写实，材质细节包括<服装/皮肤/玻璃/雨水/金属/布料>；如果是动漫卡通或类3D动漫，则强调<线条 / 赛璐璐明暗 / 发丝块面 / 眼神设计 / 三维材质高光 / 角色轮廓层次>。保留<标题安全区位置>干净留白，方便后期添加剧名。不要生成任何可见文字、汉字、英文、logo、水印、字幕、平台标识；不要廉价拼贴、不要网红滤镜、不要低清模糊、不要畸形手指、不要重复人物。
 ```
 
-## JSON Structured Prompt
+If character turnarounds exist, prepend a short design-lock sentence and simplify appearance language:
+
+```text
+按角色三视图设定生成，保持角色三视图中的轮廓、比例、材质、配色、发型和整体气质不变，不额外改写角色设定。重点强化<构图 / 关系 / 表情 / 姿态 / 服装 / 光影>。
+```
+
+Turnaround writing rules:
+
+- Do not add beautification tags unless explicitly requested.
+- Do not add invented anatomy, species correction, material replacement, age reduction, or face-shape rewrite keywords.
+- Use expression, posture, wardrobe, props, and lighting to create drama instead of rewriting the design.
+- Do not turn design constraints into assistant commentary. Write the constraint directly into the scene description.
+
+Style/composition reference writing rules:
+
+- Extract only layout and finish, not sample content.
+- Do not reverse-engineer title words, face traits, costume specifics, or sample props into the new prompt.
+- If needed, mention the borrow explicitly: `参考其双人对峙构图与上方留白，不继承原图人物与文字内容。`
+- When that borrow is merged into the final platform-ready prompt, rewrite it as pure visual instruction instead of meta-commentary.
+
+## Platform-Ready Prompt
+
+This is the only block intended for direct use on image-generation platforms.
+
+Rules:
+
+- Keep only image-generation instructions.
+- Do not include workflow labels, versioning, task names, direction names, routing judgments, or reference-strategy metadata.
+- Do not include JSON keys or explanatory headers.
+- Merge the useful parts of `Chinese Complete Prompt`, title instructions if needed, and negative constraints into one clean prompt block.
+- Do not include assistant/user dialogue residue or explanation language.
+- Ban phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `视觉上让人一眼明白`, `这是XX设定`, `这一版`, `再给你一版`.
+- Avoid supervisory phrasing such as `必须严格参考`, `需要让人看出`, `必须明确可见`. Convert them into direct scene constraints.
+
+Language shape for platform-ready prompts:
+
+- Use declarative image instructions.
+- Each sentence should describe visible content, composition, lighting, material, or explicit negative constraint.
+- Do not explain why a choice exists.
+- Do not mention the user, the assistant, the workflow, the revision process, or the reference handoff.
+
+Bad example:
+
+```text
+必须严格参考你给的角色卡，视觉上让人一眼明白这是系统爽文设定，如果你要我可以再给你一版压缩版。
+```
+
+Good example:
+
+```text
+前景主体为普通刀疤鲤鱼本体，严格保持角色三视图中的灰黑轮廓、普通鲤鱼体型和伤疤识别点。主角背后悬浮巨大的系统全息界面与透明终极形态投影，构成前实后虚双层主角关系。
+```
+
+Recommended note above the block:
+
+```markdown
+平台投喂版 Prompt：
+- 可直接用于生图平台
+- 不包含工作流元信息
+```
+
+## Workflow JSON
+
+This block is for humans and agents, not for direct image-platform input.
+
+Always put a warning label immediately above it:
+
+```markdown
+工作流 JSON（不要直接用于生图平台）：
+```
 
 Keep JSON keys stable; values should be Chinese.
 
 ```json
 {
-  "版本": "short-drama-poster-v1",
-  "任务": "短剧海报底图",
-  "方向": {
-    "名称": "",
-    "核心钩子": "",
+  "_workflow_only": {
+    "用途": "工作流元信息，不要直接用于生图平台",
+    "版本": "short-drama-poster-v1",
+    "任务": "短剧海报底图",
+    "方向名": "",
+    "输入判断": {
+      "输出类型": "",
+      "风格模式": "",
+      "是否带标题": ""
+    },
+    "参考图策略": {
+      "角色三视图": [],
+      "风格参考图": [],
+      "风格图可继承": [],
+      "风格图禁止继承": []
+    }
+  },
+  "平台可用内容": {
+    "任务": "短剧海报底图",
     "风格模式": "",
     "构图类型": "",
-    "情绪温度": ""
-  },
-  "人物": {
-    "出镜人数": "",
-    "主次关系": "",
-    "人物占比": "",
-    "身份一致性": ""
-  },
-  "画面": {
-    "景别": "",
-    "镜头": "",
-    "场景": "",
-    "关键道具": "",
-    "前中后景": ""
-  },
-  "光影": {
-    "主光": "",
-    "轮廓光": "",
-    "色调": "",
-    "材质细节": [],
-    "渲染特征": []
-  },
-  "标题安全区": {
-    "位置": "",
-    "要求": "保持干净，不生成文字"
-  },
-  "负向约束": [
-    "不要画面内可见文字",
-    "不要 logo 或平台标识",
-    "不要水印",
-    "不要廉价拼贴",
-    "不要低清模糊",
-    "不要畸形手指",
-    "不要重复人物",
-    "不要 AI 塑料皮肤"
-  ]
+    "情绪温度": "",
+    "人物": {
+      "出镜人数": "",
+      "主次关系": "",
+      "人物占比": "",
+      "身份一致性": "",
+      "外貌描述策略": ""
+    },
+    "画面": {
+      "景别": "",
+      "镜头": "",
+      "场景": "",
+      "关键道具": "",
+      "前中后景": ""
+    },
+    "光影": {
+      "主光": "",
+      "轮廓光": "",
+      "色调": "",
+      "材质细节": [],
+      "渲染特征": []
+    },
+    "标题安全区": {
+      "位置": "",
+      "要求": "保持干净，不生成文字"
+    },
+    "参考图绑定": [],
+    "负向约束": []
+  }
 }
+```
+
+Recommended value for `外貌描述策略` when character turnarounds exist:
+
+```text
+以角色三视图一致性为最高优先级，只描述表情、姿态、服装、景别和光影，不补充会改变设定的外貌或材质细节。
+```
+
+Recommended values when style/composition references exist:
+
+```text
+风格图可继承：构图、景别、留白、光影、色调、商业完成度。
+风格图禁止继承：剧名文字、人物脸、服装细节、剧情道具、logo、水印、平台元素。
+```
+
+Suggested output note after JSON:
+
+```markdown
+使用说明：
+- 直接投喂生图平台时，只使用“平台投喂版 Prompt”
+- “工作流 JSON”仅用于存档、复盘、二次编辑或 agent 间传递
 ```
 
 ## Title-Rendered Extension
@@ -95,7 +221,7 @@ Use when the user explicitly wants a poster with title text.
 Example extension:
 
 ```text
-在保留上方标题安全区的前提下，直接渲染中文剧名“隐婚继承”。根据都市权力、隐婚压迫和冷感商业海报气质，自动匹配“硬核战损金属切角字”或“权谋金石书法字”体系中的更合适一支，再在该字形家族内选择现代硬朗黑体式海报化处理，表面使用轻微银灰冷金属边缘和克制高光，字重明显但不过厚，保持高级商业海报感。默认只渲染剧名，不额外添加副标题、卖点文案、平台角标或集数信息。标题不要遮挡人物眼睛、嘴部和关键手势，不要出现乱码、错字、破碎笔画、平台标识或二维码。
+在保留上方标题安全区的前提下，直接渲染中文剧名“隐婚继承”。根据都市权力、隐婚压迫和冷感商业海报气质，先自动匹配“硬核战损金属切角字”或“权谋金石书法字”中更合适的一支，并明确匹配依据；再在该字形家族内选择现代硬朗黑体式或霸气行草式的海报化风格桶，表面使用轻微银灰冷金属边缘和克制高光，字重明显但不过厚，保持高级商业海报感。默认只渲染剧名，不额外添加副标题、卖点文案、平台角标或集数信息。标题不要遮挡人物眼睛、嘴部和关键手势，不要出现乱码、错字、破碎笔画、平台标识或二维码。
 ```
 
 ## Whole-Image Redraw Template
@@ -114,7 +240,22 @@ Example extension:
 - 强化<情绪/冲突/道具/空间>。
 
 完整改图提示词：
-基于参考海报进行整图重绘，保留人物身份、人数、主要站位和关系张力，不改变核心角色脸型、年龄感、发型和气质。若需要风格转换，明确从<原风格>改为<目标风格>，同时保留商业海报构图可读性。将画面改成<目标变化>……
+基于参考海报进行整图重绘，保留角色身份、人数、主要站位和关系张力，不改变核心角色三视图设定中的轮廓、比例、材质、配色、发型和气质。若需要风格转换，明确从<原风格>改为<目标风格>，同时保留商业海报构图可读性。将画面改成<目标变化>……
+```
+
+Recommended redraw JSON additions:
+
+```json
+{
+  "输入判断": {
+    "输出类型": "整图重绘",
+    "风格模式": "",
+    "是否带标题": ""
+  },
+  "保留项": [],
+  "改动项": [],
+  "参考图绑定": []
+}
 ```
 
 ## Negative Constraints
@@ -123,6 +264,18 @@ Use negative constraints only when they prevent common failures. Recommended def
 
 ```text
 不要生成任何可见文字、汉字、英文、logo、水印、字幕、平台标识；不要廉价拼贴、不要普通自拍照、不要PPT封面感、不要人物过小、不要背景压过人物、不要低清模糊、不要过曝、不要脏色块、不要畸形手指、不要重复人物、不要五官错乱。写实模式额外避免AI塑料皮肤；动漫/卡通模式额外避免崩脸、比例失衡、低幼廉价感；类3D动漫模式额外避免塑料玩偶感、手游登录页感、过度廉价特效。
+```
+
+If character turnarounds exist, add:
+
+```text
+不要擅自改变角色三视图中的轮廓、比例、种族特征、材质、配色、发型和整体气质；不要自动美化换设、不要过度磨皮、不要把原设角色改成陌生设计。
+```
+
+If style/composition references exist, add:
+
+```text
+不要照搬参考图中的剧名文字、标题文案、角色脸、服装细节、珠宝道具、logo、水印、二维码、平台角标；不要把风格参考图里的具体人物和剧情元素直接反推到新海报里。
 ```
 
 If rendering title text directly in-image, add:

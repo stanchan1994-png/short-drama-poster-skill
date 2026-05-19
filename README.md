@@ -53,6 +53,7 @@ This skill turns a script, synopsis, character references, or an existing poster
 - [examples/anime-family-secret.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/anime-family-secret.md): anime/cartoon example
 - [examples/3d-anime-ensemble.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/3d-anime-ensemble.md): stylized 3D anime example
 - [examples/title-rendered-urban-power.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/title-rendered-urban-power.md): title-rendered poster example
+- [examples/prompt-cleanliness-bad-vs-good.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/prompt-cleanliness-bad-vs-good.md): bad-vs-good prompt cleanliness example
 
 ## Installation
 
@@ -99,9 +100,10 @@ Standard output should include:
 1. 3 poster directions
 2. recommended direction
 3. Chinese complete prompt
-4. JSON structured prompt
-5. negative constraints
-6. quality checklist
+4. platform-ready prompt
+5. workflow JSON (not for direct image-platform input)
+6. negative constraints
+7. quality checklist
 
 If the user explicitly wants a title-rendered poster, the output should also include title-layer guidance or a direct title-rendered extension.
 
@@ -121,5 +123,6 @@ The style branch matters because the skill should not force realistic skin or fi
 - Default language is Chinese
 - Default image assumption is title-free poster base
 - Title-rendered posters are supported when explicitly requested, and the default rendered-text version should contain only the main drama title unless extra copy is explicitly requested
-- Actor identity consistency takes priority over visual experimentation when reference photos exist
+- Character-turnaround consistency takes priority over visual experimentation when role turnarounds exist
 - In multi-character posters, not every face should receive equal attention
+- Platform-ready prompts must stay as pure image instructions and should not contain dialogue residue such as "you provided", "if you want", or "I can give another version"

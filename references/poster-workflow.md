@@ -8,8 +8,8 @@ Collect only what is needed:
 - 剧本/剧情梗概: prioritize conflict, relationship, reversal, and setting.
 - 风格方向: urban, revenge, romance, CEO/power, ancient costume, fantasy, family, suspense, etc.
 - 风格模式: realistic, semi-realistic illustration, anime/cartoon, or 3D anime.
-- 角色照片: actor identity references; ask which role each photo belongs to.
-- 参考图: visual language only. Do not copy unrelated people, text, logos, or platform layout.
+- 角色三视图: primary character-design references; ask which turnaround belongs to which role.
+- 风格/构图参考图: visual language references only; use for framing and finish, not for copying text or people.
 - Output need: pure poster base, title-safe base, title rendered image, or redraw instructions.
 
 If information is missing, proceed with a labeled assumption instead of blocking. Ask only when identity mapping or output type is impossible to infer.
@@ -21,6 +21,33 @@ If the user asks for a complete poster, determine whether they mean:
 - directly rendered title poster
 
 When the user says "偏卡通", "动漫", "二次元", "类 3D 动漫", "像游戏 key visual", or "不要写实", switch out of realistic mode explicitly instead of silently keeping cinematic realism.
+
+### Output Routing
+
+Before writing directions, classify the request into one of three routes:
+
+- `无字底图`: no visible text in the image, but keep a clean title-safe area
+- `带字成图`: title rendered in-image, usually only the main title unless the user asks for more copy
+- `整图重绘`: preserve identity/relationship/composition logic from an existing poster and rebuild the whole image
+
+If the user says "出封面", "做成品图", or "直接发平台", do not guess. Briefly judge whether they mean `带字成图` or just a cleaner `无字底图`.
+
+If character turnarounds are provided, add a short role-binding block before directions:
+
+- 三视图 A -> 女主
+- 三视图 B -> 男主
+- 三视图 C -> 反派长辈
+
+If style/composition references are provided, add a short extraction block before directions:
+
+- 风格参考图 1：只继承<构图 / 景别 / 光影 / 色调 / 标题安全区位置>
+- 明确排除：<剧名文字 / 人物长相 / 服装细节 / 原海报道具 / logo / 水印 / 平台元素>
+
+If any critical information is missing but inferable, write one short assumption block:
+
+- 假设风格模式：写实电影感
+- 假设标题处理：先出无字底图
+- 假设主视觉关系：女主主中心，男主后压迫
 
 ## 2. Story Hook Analysis
 
@@ -61,6 +88,8 @@ Each direction must include:
 - If relevant, title rendering suitability.
 - Why this direction sells the drama.
 
+Even if the user finally wants only one prompt, generate three directions first internally. Show all three unless the user explicitly asks for concise output.
+
 ## 4. Build Poster Base Prompt
 
 The prompt must describe visible image content, not abstract adjectives. Include:
@@ -73,6 +102,37 @@ The prompt must describe visible image content, not abstract adjectives. Include
 - Commercial polish: high-end film poster, clean layers, strong visual focus.
 - Title-safe area: clean upper/side/bottom area depending on direction.
 - No text: no Chinese/English characters, logos, subtitles, watermarks.
+
+When character turnarounds exist, change the writing strategy:
+
+- write the prompt as a **turnaround-driven poster staging instruction**
+- do not redesign the approved character with extra beauty or anatomy invention
+- avoid adding feature descriptors that are not required for design preservation
+- do not "optimize" the character into different facial proportions, body proportions, species traits, materials, color blocking, age feel, or hairstyle
+- only describe appearance when it is already visible in the turnaround and necessary for role binding
+- prefer `表情 / 视线 / 姿态 / 服装 / 景别 / 光影 / 站位 / 关系张力`
+- avoid replacing the approved design with generic beauty or realism tags unless the user explicitly requested such a transformation
+
+Useful turnaround-safe phrasing:
+
+- 按角色三视图设定生成
+- 保持角色三视图中的轮廓、比例、材质、配色、发型和整体气质不变
+- 强调海报构图、关系、动作和光影，不额外改写角色设定
+- 以角色三视图一致性为最高优先级
+
+When style/composition references exist, change the writing strategy again:
+
+- treat them as **abstract visual references**, not content references
+- extract only reusable visual structure: framing, layout density, near-mid-far layering, title-safe area shape, lighting logic, and finish level
+- do not reverse-engineer the sample's title text, character look, wardrobe story, prop story, or exact scene narrative into the new prompt
+- if the sample contains people, describe them only as `前景主角占位 / 双人对峙关系 / 群像层级` rather than as specific faces or costumes
+- if the sample contains text, explicitly exclude it unless the user asked to inherit that exact title treatment
+
+Useful style-reference phrasing:
+
+- 参考该图的构图节奏与光影组织，不继承图中文字和人物形象
+- 只借鉴版式、镜头距离、留白位置和商业完成度
+- 不反推参考图中的剧名、标题文案、角色长相和剧情道具
 
 If style mode is not realistic:
 
@@ -106,14 +166,28 @@ Recommended practice:
 
 ## 5. Character Consistency
 
-When actor/reference photos exist:
+When character turnarounds exist:
 
-- Bind each photo to a named role before prompt writing.
-- State that identity consistency outranks style creativity.
-- Ask for 1-2 strongest reference photos per key role if too many are supplied.
-- Require consistent face shape, age, hairstyle, expression type, and general temperament.
-- For anime/cartoon/3D anime, keep identity consistency through hairstyle, face shape, eye spacing, color palette, and temperament rather than forcing full photo likeness.
+- Bind each turnaround to a named role before prompt writing.
+- State that design consistency outranks style creativity.
+- Ask for 1 strongest approved turnaround set per key role if too many versions are supplied.
+- Require consistent silhouette, proportions, materials, color blocking, hairstyle, and general temperament.
+- Do not add decorative anatomy or beauty wording that can pull the model away from the turnaround.
+- Prefer staging descriptors over appearance-rewrite descriptors: expression, gaze direction, chin lift, shoulder angle, hand action, wardrobe silhouette, camera distance, and light hierarchy.
+- If a role turnaround is weak or ambiguous, say that explicitly and keep the appearance description even shorter rather than compensating with invented traits.
+- For anime/cartoon/3D anime, keep identity consistency through silhouette, face structure, eye spacing, palette, material language, and temperament rather than forcing realism.
 - If the poster has many characters, prioritize must-appear roles and allow secondary figures to be less detailed.
+
+## 5a. Style/Composition Reference Handling
+
+When style/composition references exist:
+
+- label them separately from character references
+- write what is allowed to inherit and what is forbidden to inherit
+- allowed: composition, cropping, shot size, hierarchy, negative space, color mood, lighting logic, texture polish
+- forbidden: visible text, title wording, character identity specifics from the sample, face traits, costume specifics, jewelry specifics, logo, watermark, QR code, platform marks, reference-plot props
+- if the sample poster is very specific, abstract it one level up before prompt writing
+- prefer phrases like `上中留白压标题`, `双人中近景对峙`, `冷暖对冲布光`, `群像阶梯层级`
 
 ## 5b. Multi-Character Strategy
 

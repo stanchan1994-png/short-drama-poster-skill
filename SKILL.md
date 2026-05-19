@@ -5,7 +5,7 @@ description: End-to-end Chinese short-drama poster workflow for AI agents. Use w
 
 # Short Drama Poster
 
-Use this skill to turn a short-drama brief, script, style direction, character photos, or an existing poster into a practical AI poster workflow. Default to Chinese output unless the user asks otherwise.
+Use this skill to turn a short-drama brief, script, style direction, character turnarounds, or an existing poster into a practical AI poster workflow. Default to Chinese output unless the user asks otherwise.
 
 The default mode is commercial short-drama realism, but this skill also supports:
 
@@ -23,12 +23,15 @@ The default mode is commercial short-drama realism, but this skill also supports
 4. Produce **3 distinct poster directions** before writing final prompts. Make the directions meaningfully different in composition, emotional temperature, commercial hook, and if useful, style execution.
 5. Decide whether the output is a title-free base or a title-rendered final poster.
 6. After a direction is chosen, produce a **Chinese complete prompt** and a **JSON structured prompt** for image platforms.
-7. Keep the image title-free by default: no rendered title text, no logo, no watermark, and a clean title-safe area.
-8. If the user explicitly wants a poster with title text, generate both the poster-base prompt and a title-layer or title-rendered version with typography guidance. The default title-rendered version should contain only the main drama title unless the user explicitly asks for subtitle, slogan, platform line, or extra copy.
-9. If title rendering is requested, auto-match a title glyph family from `references/font-library.md` based on genre, relationship tone, and style mode before assigning material treatment.
-10. Material treatment for title-rendered posters must be derived from the poster look itself: same glyph family can render as silver metal, warm gold foil, dry-brush white, enamel, glow, or premium 3D highlight depending on story type.
-11. If the user provides an existing poster, treat the task as whole-image redraw unless they explicitly ask for local masking. Preserve the requested identity/composition/style constraints and generate new redraw instructions.
-12. Finish with a short quality checklist and concrete fixes.
+7. Before the final prompt, state a short **task judgment**: normal poster base, title-rendered poster, or whole-image redraw. If you made assumptions, label them explicitly instead of hiding them.
+8. If references are provided, classify them first: **character turnaround reference** or **style/composition reference**.
+9. If character turnarounds are provided, output a short **reference-role binding** block before writing prompts so each image is tied to a named role.
+10. Keep the image title-free by default: no rendered title text, no logo, no watermark, and a clean title-safe area.
+11. If the user explicitly wants a poster with title text, generate both the poster-base prompt and a title-layer or title-rendered version with typography guidance. The default title-rendered version should contain only the main drama title unless the user explicitly asks for subtitle, slogan, platform line, or extra copy.
+12. If title rendering is requested, auto-match a title glyph family from `references/font-library.md` based on genre, relationship tone, and style mode before assigning material treatment.
+13. Material treatment for title-rendered posters must be derived from the poster look itself: same glyph family can render as silver metal, warm gold foil, dry-brush white, enamel, glow, or premium 3D highlight depending on story type.
+14. If the user provides an existing poster, treat the task as whole-image redraw unless they explicitly ask for local masking. Preserve the requested identity/composition/style constraints and generate new redraw instructions.
+15. Finish with a short quality checklist and concrete fixes.
 
 ## What To Read
 
@@ -44,29 +47,40 @@ The default mode is commercial short-drama realism, but this skill also supports
 
 For a normal "make a poster prompt" request, output:
 
-1. **3 poster directions**: title, hook, style mode, composition, characters, scene, lighting, title-safe area.
-2. **Recommended direction**: one concise reason.
-3. **Chinese complete prompt** for the recommended direction.
-4. **JSON structured prompt** using Chinese values while preserving JSON syntax.
-5. **Negative constraints** and quality checklist.
+1. **Task judgment**: confirm this is a title-free base, title-rendered poster, or redraw task.
+2. **Assumptions**: only when information is missing.
+3. **Reference-role binding**: only when character turnarounds are provided.
+4. **3 poster directions**: title, hook, style mode, composition, characters, scene, lighting, title-safe area.
+5. **Recommended direction**: one concise reason.
+6. **Chinese complete prompt** for the recommended direction.
+7. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, with no workflow metadata.
+8. **Workflow JSON**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
+9. **Negative constraints** and quality checklist.
 
 For a "带标题成品图" or "直接做带字海报" request, output:
 
-1. **3 poster directions** with title-safe-area reasoning.
-2. **Recommended direction**.
-3. **Poster-base Chinese prompt**.
-4. **Title-rendered version** or title-layer instructions.
-5. **JSON structured prompt**.
-6. **Typography notes**: glyph family, material treatment, title style, placement, subtitle, billing, and avoidance rules.
-7. **Quality checklist**.
+1. **Task judgment**.
+2. **Assumptions**: only when needed.
+3. **Reference-role binding**: only when references exist.
+4. **3 poster directions** with title-safe-area reasoning.
+5. **Recommended direction**.
+6. **Poster-base Chinese prompt**.
+7. **Title-rendered version** or title-layer instructions.
+8. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions.
+9. **Workflow JSON**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
+10. **Typography notes**: glyph family, material treatment, title style, placement, subtitle, billing, and avoidance rules.
+11. **Quality checklist**.
 
 For an "edit/redraw this poster" request, output:
 
-1. What to preserve.
-2. What to change.
-3. Complete whole-image redraw prompt.
-4. JSON structured redraw prompt.
-5. Failure risks and quality checks.
+1. **Task judgment**.
+2. **What to preserve**.
+3. **What to change**.
+4. **Reference-role binding**: only when the user also supplies character turnarounds.
+5. **Complete whole-image redraw prompt**.
+6. **Platform-ready redraw prompt**: a clean feed-ready redraw prompt with no workflow metadata.
+7. **Workflow JSON**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
+8. **Failure risks and quality checks**.
 
 ## Hard Rules
 
@@ -78,5 +92,13 @@ For an "edit/redraw this poster" request, output:
 - If title rendering is requested, title readability must never destroy face readability or relationship clarity.
 - If title rendering is requested, do not leave the title family unspecified. Always choose a base glyph family first, then assign a surface treatment that matches the poster style.
 - Avoid cheap cover aesthetics: collage clutter, random neon gradients, over-smoothed AI skin, tiny faces, bad hands, unreadable relationships, platform UI marks, fake logos, and watermark-like artifacts.
-- If character photos are provided, prioritize identity consistency over style creativity.
+- If character turnarounds are provided, prioritize turnaround consistency over style creativity.
+- If character turnarounds are provided, treat this skill as **turnaround-driven generation first**, not free character invention.
+- With character turnarounds, do not invent or over-specify facial features, body proportions, species traits, materials, colors, silhouette markers, or hairstyle changes unless the user explicitly asks for those changes.
+- With character turnarounds, keep appearance language minimal and identity-safe: describe only role hierarchy, expression, gaze, posture, wardrobe, shot size, and lighting that help the poster read better without changing the approved design.
+- If a style/composition reference is provided, use it only for composition, camera distance, cropping rhythm, negative space, color tendency, lighting logic, and poster finish.
+- Never copy visible text, title wording, font content, character identity details, face description, clothing specifics, props, jewelry, logos, watermarks, or plot-specific visual clues from a style/composition reference unless the user explicitly asks to inherit that exact element.
+- Platform-ready prompts must be pure image instructions, not dialogue, explanation, or assistant commentary.
+- In platform-ready prompts, forbid phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `这一版`, `再给你一版`, `视觉上让人一眼明白`, `这是XX设定`.
+- In platform-ready prompts, replace supervisory or explanatory wording with direct visible constraints.
 - If the requested style is anime, cartoon, or 3D anime, replace realism-specific language with line, shape, material, rendering, and silhouette language instead of forcing photo-real skin rules.
