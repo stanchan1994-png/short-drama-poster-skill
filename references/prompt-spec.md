@@ -88,9 +88,10 @@ Rules:
 - Do not include JSON keys or explanatory headers.
 - Merge the useful parts of `Chinese Complete Prompt`, title instructions if needed, and negative constraints into one clean prompt block.
 - Do not include assistant/user dialogue residue or explanation language.
-- Ban phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `视觉上让人一眼明白`, `这是XX设定`, `这一版`, `再给你一版`.
+- Ban phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `视觉上让人一眼明白`, `这是XX设定`, `这一版`, `再给你一版`, `改为`, `改成`, `保持为`, `参考示例图`, `按示例图`.
 - Avoid supervisory phrasing such as `必须严格参考`, `需要让人看出`, `必须明确可见`. Convert them into direct scene constraints.
 - Hard limit: keep the final `Platform-Ready Prompt` within **1900 Chinese characters** unless the user explicitly asks for a longer platform version.
+- In revision mode, output the final desired picture directly. Do not describe the act of modifying from an old version to a new version.
 
 Language shape for platform-ready prompts:
 
@@ -119,6 +120,19 @@ Good example:
 前景主体为普通刀疤鲤鱼本体，严格保持角色三视图中的灰黑轮廓、普通鲤鱼体型和伤疤识别点。主角背后悬浮巨大的系统全息界面与透明终极形态投影，构成前实后虚双层主角关系。
 ```
 
+Revision-state conversion examples:
+
+```text
+终极进化形态改为主角身后偏上方的大型虚影
+-> 终极进化形态位于主角身后偏上方，形成大型虚影层
+
+背景威胁保持为后景上半部的巨大正面巨骨舌鱼黑影
+-> 背景威胁为后景上半部的巨大正面巨骨舌鱼黑影
+
+动作关系参考示例图
+-> 本体前冲，后方虚影顺势上扬，形成前低后高的冲势关系
+```
+
 Recommended note above the block:
 
 ```markdown
@@ -130,11 +144,20 @@ Recommended note above the block:
 ## Workflow JSON
 
 This block is for humans and agents, not for direct image-platform input.
+For beginner-facing output, it should be treated as optional advanced info and collapsed/folded by default whenever the surface supports that behavior.
 
 Always put a warning label immediately above it:
 
 ```markdown
 工作流 JSON（不要直接用于生图平台）：
+```
+
+Recommended display note:
+
+```markdown
+工作流 JSON（默认折叠，可选查看）：
+- 仅用于复盘、定向改词、agent 续改
+- 不要直接用于生图平台
 ```
 
 Keep JSON keys stable; values should be Chinese.
@@ -212,7 +235,7 @@ Suggested output note after JSON:
 ```markdown
 使用说明：
 - 直接投喂生图平台时，只使用“平台投喂版 Prompt”
-- “工作流 JSON”仅用于存档、复盘、二次编辑或 agent 间传递
+- “工作流 JSON”默认折叠，仅用于存档、复盘、二次编辑或 agent 间传递
 - 平台投喂版 Prompt 默认控制在 1900 字以内
 ```
 
@@ -249,13 +272,13 @@ Example extension:
 - 保留原图的人数层级和标题安全区逻辑。
 
 改变：
-- 将氛围改为<目标氛围>。
-- 将光线改为<光线方案>。
-- 将场景改为<目标场景>。
-- 强化<情绪/冲突/道具/空间>。
+- 目标氛围为<目标氛围>。
+- 光线方案为<光线方案>。
+- 场景设置为<目标场景>。
+- 重点突出<情绪/冲突/道具/空间>。
 
 完整改图提示词：
-基于参考海报进行整图重绘，保留角色身份、人数、主要站位和关系张力，不改变核心角色三视图设定中的轮廓、比例、材质、配色、发型和气质。若需要风格转换，明确从<原风格>改为<目标风格>，同时保留商业海报构图可读性。将画面改成<目标变化>……
+基于参考海报进行整图重绘，保留角色身份、人数、主要站位和关系张力，不改变核心角色三视图设定中的轮廓、比例、材质、配色、发型和气质。整体风格为<目标风格>，同时保留商业海报构图可读性。画面呈现<目标变化>……
 ```
 
 Recommended redraw JSON additions:

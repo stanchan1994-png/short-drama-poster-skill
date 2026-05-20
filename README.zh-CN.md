@@ -101,7 +101,7 @@ Use short-drama-poster. Make it a 3D anime commercial poster with a strong two-p
 2. 推荐方向及理由
 3. 中文完整提示词
 4. 平台投喂版 Prompt
-5. 工作流 JSON（不要直接用于生图平台）
+5. 工作流 JSON（默认折叠，不要直接用于生图平台）
 6. 负向约束
 7. 质检清单
 
@@ -123,4 +123,5 @@ Use short-drama-poster. Make it a 3D anime commercial poster with a strong two-p
 - 用户明确要求时，也支持直接输出带标题成图规则，且默认只放剧名，副标题等附加文字需要主动要求
 - 如果有角色三视图，设定一致性优先于风格创意
 - 多人海报里不应该让每张脸都拥有同等视觉权重
+- 面向小白用户时，优先展示“平台投喂版 Prompt”；工作流 JSON 应作为默认折叠的附加信息
 - 平台投喂版 Prompt 必须是纯画面指令，不能混入“你给的”“如果你要”“我可以再给你一版”这类对话污染

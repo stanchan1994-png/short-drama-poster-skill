@@ -31,6 +31,10 @@ Bad platform-ready prompts often contain:
 - `这是XX设定`
 - `这一版`
 - `再给你一版`
+- `改为`
+- `改成`
+- `保持为`
+- `参考示例图`
 
 Good platform-ready prompts contain only:
 
@@ -101,6 +105,15 @@ Examples:
 
 - `如果你要，我可以再给你一版压缩版`
   -> delete entirely
+
+- `终极进化形态改为主角身后偏上方的大型虚影`
+  -> `终极进化形态位于主角身后偏上方，形成大型虚影层`
+
+- `背景威胁保持为后景上半部的巨大正面巨骨舌鱼黑影`
+  -> `背景威胁为后景上半部的巨大正面巨骨舌鱼黑影`
+
+- `动作关系参考示例图`
+  -> `本体前冲，后方虚影顺势上扬，形成前低后高的冲势关系`
 
 ## Revision Instruction
 

@@ -55,7 +55,7 @@ For a normal "make a poster prompt" request, output:
 5. **Recommended direction**: one concise reason.
 6. **Chinese complete prompt** for the recommended direction.
 7. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, with no workflow metadata, capped at **1900 Chinese characters**.
-8. **Workflow JSON**: structured metadata for humans/agents; keep it compact and avoid unnecessary prose.
+8. **Workflow JSON (collapsed by default)**: structured metadata for humans/agents; keep it compact, avoid unnecessary prose, and treat it as optional supporting info for advanced users.
 9. **Negative constraints** and quality checklist.
 
 For a "带标题成品图" or "直接做带字海报" request, output:
@@ -68,7 +68,7 @@ For a "带标题成品图" or "直接做带字海报" request, output:
 6. **Poster-base Chinese prompt**.
 7. **Title-rendered version** or title-layer instructions.
 8. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, capped at **1900 Chinese characters**.
-9. **Workflow JSON**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
+9. **Workflow JSON (collapsed by default)**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
 10. **Typography notes**: glyph family, material treatment, title style, placement, subtitle, billing, and avoidance rules.
 11. **Quality checklist**.
 
@@ -80,7 +80,7 @@ For an "edit/redraw this poster" request, output:
 4. **Reference-role binding**: only when the user also supplies character turnarounds.
 5. **Complete whole-image redraw prompt**.
 6. **Platform-ready redraw prompt**: a clean feed-ready redraw prompt with no workflow metadata, capped at **1900 Chinese characters**.
-7. **Workflow JSON**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
+7. **Workflow JSON (collapsed by default)**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
 8. **Failure risks and quality checks**.
 
 ## Hard Rules
@@ -100,8 +100,11 @@ For an "edit/redraw this poster" request, output:
 - If a style/composition reference is provided, use it only for composition, camera distance, cropping rhythm, negative space, color tendency, lighting logic, and poster finish.
 - Never copy visible text, title wording, font content, character identity details, face description, clothing specifics, props, jewelry, logos, watermarks, or plot-specific visual clues from a style/composition reference unless the user explicitly asks to inherit that exact element.
 - Platform-ready prompts must be pure image instructions, not dialogue, explanation, or assistant commentary.
-- In platform-ready prompts, forbid phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `这一版`, `再给你一版`, `视觉上让人一眼明白`, `这是XX设定`.
+- Show the `Platform-ready prompt` first. Treat `Workflow JSON` as secondary supporting information for revision control, not the main user-facing result.
+- Assume many users are beginners. By default, keep `Workflow JSON` folded/collapsed or clearly separated as optional advanced information.
+- In platform-ready prompts, forbid phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `这一版`, `再给你一版`, `视觉上让人一眼明白`, `这是XX设定`, `改为`, `改成`, `保持为`, `参考示例图`, `按示例图`.
 - In platform-ready prompts, replace supervisory or explanatory wording with direct visible constraints.
+- In revision mode, write the final image as an already-decided result state. Do not write edit instructions such as `把A改为B`, `保持为`, `改成`, or `参考示例图中的关系`.
 - Platform-ready prompts must stay within **1900 Chinese characters** unless the user explicitly asks for a longer version.
 - If the prompt is too long, compress in this order: remove repeated style adjectives, merge similar negative constraints, shorten explanatory transitions, keep composition/character/lighting/title-safe-area first.
 - If the requested style is anime, cartoon, or 3D anime, replace realism-specific language with line, shape, material, rendering, and silhouette language instead of forcing photo-real skin rules.

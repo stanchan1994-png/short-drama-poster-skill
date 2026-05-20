@@ -101,7 +101,7 @@ Standard output should include:
 2. recommended direction
 3. Chinese complete prompt
 4. platform-ready prompt
-5. workflow JSON (not for direct image-platform input)
+5. workflow JSON (collapsed by default, not for direct image-platform input)
 6. negative constraints
 7. quality checklist
 
@@ -125,4 +125,5 @@ The style branch matters because the skill should not force realistic skin or fi
 - Title-rendered posters are supported when explicitly requested, and the default rendered-text version should contain only the main drama title unless extra copy is explicitly requested
 - Character-turnaround consistency takes priority over visual experimentation when role turnarounds exist
 - In multi-character posters, not every face should receive equal attention
+- For beginner-facing output, show the platform-ready prompt first and treat workflow JSON as collapsed optional support information
 - Platform-ready prompts must stay as pure image instructions and should not contain dialogue residue such as "you provided", "if you want", or "I can give another version"
