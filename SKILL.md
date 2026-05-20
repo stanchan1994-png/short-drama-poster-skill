@@ -31,7 +31,8 @@ The default mode is commercial short-drama realism, but this skill also supports
 12. If title rendering is requested, auto-match a title glyph family from `references/font-library.md` based on genre, relationship tone, and style mode before assigning material treatment.
 13. Material treatment for title-rendered posters must be derived from the poster look itself: same glyph family can render as silver metal, warm gold foil, dry-brush white, enamel, glow, or premium 3D highlight depending on story type.
 14. If the user provides an existing poster, treat the task as whole-image redraw unless they explicitly ask for local masking. Preserve the requested identity/composition/style constraints and generate new redraw instructions.
-15. Finish with a short quality checklist and concrete fixes.
+15. Keep every prompt-like output block within **1900 Chinese characters** by default, because many image platforms have prompt-length limits.
+16. Finish with a short quality checklist and concrete fixes.
 
 ## What To Read
 
@@ -53,8 +54,8 @@ For a normal "make a poster prompt" request, output:
 4. **3 poster directions**: title, hook, style mode, composition, characters, scene, lighting, title-safe area.
 5. **Recommended direction**: one concise reason.
 6. **Chinese complete prompt** for the recommended direction.
-7. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, with no workflow metadata.
-8. **Workflow JSON**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
+7. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, with no workflow metadata, capped at **1900 Chinese characters**.
+8. **Workflow JSON**: structured metadata for humans/agents; keep it compact and avoid unnecessary prose.
 9. **Negative constraints** and quality checklist.
 
 For a "带标题成品图" or "直接做带字海报" request, output:
@@ -66,7 +67,7 @@ For a "带标题成品图" or "直接做带字海报" request, output:
 5. **Recommended direction**.
 6. **Poster-base Chinese prompt**.
 7. **Title-rendered version** or title-layer instructions.
-8. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions.
+8. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, capped at **1900 Chinese characters**.
 9. **Workflow JSON**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
 10. **Typography notes**: glyph family, material treatment, title style, placement, subtitle, billing, and avoidance rules.
 11. **Quality checklist**.
@@ -78,7 +79,7 @@ For an "edit/redraw this poster" request, output:
 3. **What to change**.
 4. **Reference-role binding**: only when the user also supplies character turnarounds.
 5. **Complete whole-image redraw prompt**.
-6. **Platform-ready redraw prompt**: a clean feed-ready redraw prompt with no workflow metadata.
+6. **Platform-ready redraw prompt**: a clean feed-ready redraw prompt with no workflow metadata, capped at **1900 Chinese characters**.
 7. **Workflow JSON**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
 8. **Failure risks and quality checks**.
 
@@ -101,4 +102,6 @@ For an "edit/redraw this poster" request, output:
 - Platform-ready prompts must be pure image instructions, not dialogue, explanation, or assistant commentary.
 - In platform-ready prompts, forbid phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `这一版`, `再给你一版`, `视觉上让人一眼明白`, `这是XX设定`.
 - In platform-ready prompts, replace supervisory or explanatory wording with direct visible constraints.
+- Platform-ready prompts must stay within **1900 Chinese characters** unless the user explicitly asks for a longer version.
+- If the prompt is too long, compress in this order: remove repeated style adjectives, merge similar negative constraints, shorten explanatory transitions, keep composition/character/lighting/title-safe-area first.
 - If the requested style is anime, cartoon, or 3D anime, replace realism-specific language with line, shape, material, rendering, and silhouette language instead of forcing photo-real skin rules.

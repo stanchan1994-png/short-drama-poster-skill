@@ -53,6 +53,7 @@ Use this checklist before final delivery or when reviewing generated posters.
 - 是否避免了“视觉上让人一眼明白这是……”这类解释句，而改成直接画面指令。
 - 是否避免了“必须严格参考”“应该改成”这类监督口吻，而改成具体可见约束。
 - 平台投喂版 Prompt 是否只包含画面内容、构图、光影、材质和负向约束。
+- 平台投喂版 Prompt 是否控制在 1900 字以内。
 
 ## Style-Specific Checks
 
@@ -85,3 +86,4 @@ Use this checklist before final delivery or when reviewing generated posters.
 - 角色被写变样：删除多余外貌美化词，只保留角色三视图锁定句和表情、姿态、服装、光影描述。
 - 风格图被抄内容：删掉从参考图反推来的剧名文字、人物描述、服装道具和平台元素，只保留构图、景别、留白和布光信息。
 - 词变味：删除所有对话指代、解释句和监督口吻，把句子改回纯画面指令和负向约束。
+- 词太长：先删重复形容词，再合并负向约束，最后压缩过渡语，但不要删角色层级、构图、光影和关键识别点。

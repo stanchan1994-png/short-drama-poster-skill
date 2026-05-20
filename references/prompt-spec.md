@@ -52,6 +52,11 @@ Use one paragraph. Example structure:
 中文短剧竖版商业海报底图，<风格模式>，人物关系一眼可读。画面为<构图类型>，<主角>占据画面<比例>，<对手/恋人/配角>位于<位置>形成<关系张力>。场景设置在<地点/时间>，可见<关键道具/空间元素>，背景只保留服务剧情的元素。镜头为<景别和角度>，人物脸部清晰，表情体现<情绪>。光影采用<光线方案>，整体氛围<情绪词>。如果是写实或半写实，材质细节包括<服装/皮肤/玻璃/雨水/金属/布料>；如果是动漫卡通或类3D动漫，则强调<线条 / 赛璐璐明暗 / 发丝块面 / 眼神设计 / 三维材质高光 / 角色轮廓层次>。保留<标题安全区位置>干净留白，方便后期添加剧名。不要生成任何可见文字、汉字、英文、logo、水印、字幕、平台标识；不要廉价拼贴、不要网红滤镜、不要低清模糊、不要畸形手指、不要重复人物。
 ```
 
+Length rule:
+
+- `Chinese Complete Prompt` should normally stay within **1900 Chinese characters**.
+- If both `Chinese Complete Prompt` and `Platform-Ready Prompt` are present, the `Platform-Ready Prompt` has higher priority for strict length control.
+
 If character turnarounds exist, prepend a short design-lock sentence and simplify appearance language:
 
 ```text
@@ -85,6 +90,7 @@ Rules:
 - Do not include assistant/user dialogue residue or explanation language.
 - Ban phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `视觉上让人一眼明白`, `这是XX设定`, `这一版`, `再给你一版`.
 - Avoid supervisory phrasing such as `必须严格参考`, `需要让人看出`, `必须明确可见`. Convert them into direct scene constraints.
+- Hard limit: keep the final `Platform-Ready Prompt` within **1900 Chinese characters** unless the user explicitly asks for a longer platform version.
 
 Language shape for platform-ready prompts:
 
@@ -92,6 +98,14 @@ Language shape for platform-ready prompts:
 - Each sentence should describe visible content, composition, lighting, material, or explicit negative constraint.
 - Do not explain why a choice exists.
 - Do not mention the user, the assistant, the workflow, the revision process, or the reference handoff.
+
+Compression priority when over limit:
+
+1. Remove repeated emotional adjectives.
+2. Merge repeated negative constraints.
+3. Shorten transition words and helper phrases.
+4. Keep character hierarchy, composition, lighting, scene, and title-safe-area before secondary polish language.
+5. Keep identity-lock and key conflict information even in compressed form.
 
 Bad example:
 
@@ -199,6 +213,7 @@ Suggested output note after JSON:
 使用说明：
 - 直接投喂生图平台时，只使用“平台投喂版 Prompt”
 - “工作流 JSON”仅用于存档、复盘、二次编辑或 agent 间传递
+- 平台投喂版 Prompt 默认控制在 1900 字以内
 ```
 
 ## Title-Rendered Extension
