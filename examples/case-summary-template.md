@@ -15,17 +15,51 @@ Do not summarize every sentence in a long conversation. Keep only skill-relevant
 
 ## Trigger Phrases
 
+- `轻量复盘`
+- `只复盘最近这一轮`
+- `阶段复盘`
 - `复盘`
 - `总结这次使用`
 - `整理这次对话`
 - `输出 case summary`
 - `输出复盘文件`
+- `最终复盘`
+- `合并复盘`
 
 ## Required Output Form
 
 Return a single markdown code block and nothing else outside it.
 
-## Example Output
+Choose the smallest useful recap scope:
+
+- Use `轻量复盘` for the latest turn or latest correction only.
+- Use `阶段复盘` for one working phase.
+- Use full `Case Summary` only when the user asks for final recap, output file, or merged summary.
+- In long conversations, prefer merging existing light/stage recaps instead of rereading and restating the entire conversation.
+
+## Light Recap Example
+
+```md
+## 轻量复盘
+- 跑偏：平台投喂词又出现 `改为`、`保持为` 这类修改过程词。
+- 用户纠正：平台词必须写最终画面结果，不能写改稿说明。
+- 后续状态：已修好。
+- 可提炼问题：改词模式需要稳定的结果态输出规则。
+```
+
+## Stage Recap Example
+
+```md
+## 阶段复盘
+- 本阶段目标：修正平台投喂词中的语言污染。
+- 关键跑偏：输出混入对话指代、修改过程词和流程指代。
+- 用户纠正：删除 `你给的`、`改为`、`保持为`、`参考示例图`，改成最终画面结果。
+- 后续状态：已修好，但长对话中存在回退风险。
+- 最终有效约束：平台投喂词只保留画面指令、构图、光影、材质和负向约束。
+- 可提炼问题：长对话复盘应记录回退点，不逐句记录全部过程。
+```
+
+## Full Case Summary Example
 
 ```md
 # Case Summary

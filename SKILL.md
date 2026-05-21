@@ -50,8 +50,27 @@ The default mode is commercial short-drama realism, but this skill also supports
 
 For a "复盘 / 总结 / case summary / 复盘文件" request, output:
 
-1. A single fenced markdown code block.
-2. Inside the code block, use this exact structure:
+1. Choose the smallest useful recap scope:
+   - If the user says `轻量复盘`, `只复盘最近这一轮`, or the conversation is long and no final recap is requested, output **Light Recap** only.
+   - If the user says `阶段复盘`, output **Stage Recap** for the current stage only.
+   - If the user says `最终复盘`, `合并复盘`, `输出复盘文件`, or `Case Summary`, output the full **Case Summary**, preferably by merging existing light/stage recaps instead of rereading the whole conversation.
+2. Never reread or summarize the entire long conversation unless the user explicitly asks for a full final summary.
+3. For Light Recap, output one fenced markdown code block with only:
+   - `## 轻量复盘`
+   - `- 跑偏：`
+   - `- 用户纠正：`
+   - `- 后续状态：`
+   - `- 可提炼问题：`
+4. For Stage Recap, output one fenced markdown code block with only:
+   - `## 阶段复盘`
+   - `- 本阶段目标：`
+   - `- 关键跑偏：`
+   - `- 用户纠正：`
+   - `- 后续状态：`
+   - `- 最终有效约束：`
+   - `- 可提炼问题：`
+5. For full Case Summary, output a single fenced markdown code block.
+6. Inside the full Case Summary code block, use this exact structure:
    - `# Case Summary`
    - `## 1. 本次任务`
    - `## 2. 原始输入关键信息`
@@ -60,14 +79,14 @@ For a "复盘 / 总结 / case summary / 复盘文件" request, output:
    - `## 5. 暴露出的具体问题`
    - `## 6. 结果判断`
    - `## 7. 可供规则迭代的结论`
-3. Write only factual summary from the current conversation or current skill-use context.
-4. Do not continue image creation or propose a new poster direction in case-summary mode.
-5. Do not write greetings, encouragement, or extra explanation outside the code block.
-6. Do not record every sentence from a long conversation. Record only skill-relevant failures, user corrections, later regressions, final effective constraints, and generated-result feedback.
-7. In `## 4. 用户关键纠正与回退点`, use compact records such as `跑偏：... / 用户纠正：... / 后续状态：已修好|后续又回退|未验证 / 可提炼问题：...`.
-8. In `## 5. 暴露出的具体问题`, list concrete observable failures only, not abstract taste judgments.
-9. In `## 7. 可供规则迭代的结论`, separate conclusions into universal rules, conditional branch rules, and case-only notes. Do not directly turn case-specific details into global skill rules.
-10. In `## 7. 可供规则迭代的结论`, write short actionable lines under:
+7. Write only factual summary from the current conversation or current skill-use context.
+8. Do not continue image creation or propose a new poster direction in recap mode.
+9. Do not write greetings, encouragement, or extra explanation outside the code block.
+10. Do not record every sentence from a long conversation. Record only skill-relevant failures, user corrections, later regressions, final effective constraints, and generated-result feedback.
+11. In `## 4. 用户关键纠正与回退点`, use compact records such as `跑偏：... / 用户纠正：... / 后续状态：已修好|后续又回退|未验证 / 可提炼问题：...`.
+12. In `## 5. 暴露出的具体问题`, list concrete observable failures only, not abstract taste judgments.
+13. In `## 7. 可供规则迭代的结论`, separate conclusions into universal rules, conditional branch rules, and case-only notes. Do not directly turn case-specific details into global skill rules.
+14. In `## 7. 可供规则迭代的结论`, write short actionable lines under:
    - `应新增的硬规则`
    - `应新增的条件分支规则`
    - `应补充的负面示例`
