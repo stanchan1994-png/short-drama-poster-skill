@@ -26,7 +26,7 @@ The default mode is commercial short-drama realism, but this skill also supports
 5. Decide whether the output is a title-free base or a title-rendered final poster.
 6. After a direction is chosen, produce a **Chinese complete prompt** and a **JSON structured prompt** for image platforms.
 7. Before the final prompt, state a short **task judgment**: normal poster base, title-rendered poster, or whole-image redraw. If you made assumptions, label them explicitly instead of hiding them.
-8. If references are provided, classify them first: **character turnaround reference** or **style/composition reference**.
+8. If references are provided, classify them first: **character turnaround reference**, **style/composition reference**, or **action/relationship reference**.
 9. If character turnarounds are provided, output a short **reference-role binding** block before writing prompts so each image is tied to a named role.
 10. Keep the image title-free by default: no rendered title text, no logo, no watermark, and a clean title-safe area.
 11. If the user explicitly wants a poster with title text, generate both the poster-base prompt and a title-layer or title-rendered version with typography guidance. The default title-rendered version should contain only the main drama title unless the user explicitly asks for subtitle, slogan, platform line, or extra copy.
@@ -147,6 +147,11 @@ For an "edit/redraw this poster" request, output:
 - With character turnarounds, keep appearance language minimal and identity-safe: describe only role hierarchy, expression, gaze, posture, wardrobe, shot size, and lighting that help the poster read better without changing the approved design.
 - If a style/composition reference is provided, use it only for composition, camera distance, cropping rhythm, negative space, color tendency, lighting logic, and poster finish.
 - Never copy visible text, title wording, font content, character identity details, face description, clothing specifics, props, jewelry, logos, watermarks, or plot-specific visual clues from a style/composition reference unless the user explicitly asks to inherit that exact element.
+- If an action/relationship reference is provided, inherit only pose, motion path, force direction, contact/impact relationship, camera angle, and foreground/background hierarchy; do not inherit character identity, species/type, colors, materials, text, props, or story content from that reference.
+- In multi-turn revision, the latest explicit user correction overrides older prompt rules. The next platform-ready prompt must remove old names, old states, old poses, and old material assumptions that conflict with the latest correction.
+- For non-human, creature, mechanical, object, or heavily designed characters, preserve the approved design's recognizable silhouette, structural proportions, material language, color blocking, and category-defining markers; do not drift into adjacent archetypes unless the user explicitly asks.
+- For material-state transformations such as solid, hologram, energy form, spirit form, shadow form, silhouette, projection, or translucent body, state both what is preserved and what changes: color retention or removal, opacity, edge behavior, internal structure, dissipation, and whether the body is physically solid.
+- Setting elements such as UI panels, projections, magic circles, props, background threats, and symbolic objects must not steal the user-specified first visual focus unless the user explicitly makes them the main subject.
 - Platform-ready prompts must be pure image instructions, not dialogue, explanation, or assistant commentary.
 - Show the `Platform-ready prompt` first. Treat `Workflow JSON` as secondary supporting information for revision control, not the main user-facing result.
 - Assume many users are beginners. By default, keep `Workflow JSON` folded/collapsed or clearly separated as optional advanced information.

@@ -44,6 +44,22 @@ If style/composition references exist, also add:
 - 排除继承：<图中文字 / 人物长相 / 服装细节 / 道具剧情 / logo / 水印>
 ```
 
+If action/relationship references exist, also add:
+
+```markdown
+动作参考提取：
+- <动作参考图1>：继承<姿态 / 动线 / 受力方向 / 接触关系 / 镜头角度 / 前后层级>
+- 排除继承：<角色身份 / 类型或物种 / 配色 / 材质 / 道具 / 文字 / 原图剧情>
+```
+
+If the user has corrected an earlier rule in the same thread, add:
+
+```markdown
+最新覆盖：
+- <旧设定> -> <新设定>
+- 后续平台词只保留新设定
+```
+
 ## Chinese Complete Prompt
 
 Use one paragraph. Example structure:
@@ -76,6 +92,24 @@ Style/composition reference writing rules:
 - Do not reverse-engineer title words, face traits, costume specifics, or sample props into the new prompt.
 - If needed, mention the borrow explicitly: `参考其双人对峙构图与上方留白，不继承原图人物与文字内容。`
 - When that borrow is merged into the final platform-ready prompt, rewrite it as pure visual instruction instead of meta-commentary.
+
+Action/relationship reference writing rules:
+
+- Extract only pose, motion path, force direction, contact/impact relationship, camera angle, and foreground/background hierarchy.
+- Do not inherit character identity, species/type, face, costume, color, material, props, title text, or original plot content.
+- Convert `参考动作图` into a direct result-state sentence.
+
+Multi-turn override writing rules:
+
+- The latest explicit user correction overrides older prompt rules.
+- Remove old names, object types, poses, colors, material states, title rules, and focus hierarchy that conflict with the latest correction.
+- Do not keep both old and new versions in the same platform-ready prompt.
+
+Material-state writing rules:
+
+- For hologram/projection/energy/spirit/shadow/silhouette states, say what is preserved and what changes.
+- Specify color retention or removal, opacity, edge behavior, internal structure, dissipation, and whether the body is physically solid.
+- If the user asks to preserve original color while changing material state, state both constraints in one sentence.
 
 ## Platform-Ready Prompt
 
@@ -117,20 +151,20 @@ Bad example:
 Good example:
 
 ```text
-前景主体为普通刀疤鲤鱼本体，严格保持角色三视图中的灰黑轮廓、普通鲤鱼体型和伤疤识别点。主角背后悬浮巨大的系统全息界面与透明终极形态投影，构成前实后虚双层主角关系。
+前景主体为<主角本体>，保持角色三视图中的轮廓、比例、材质、配色和关键识别点。<辅助设定元素>位于主角后方或侧后方，亮度与清晰度低于主角，形成前实后虚的主次关系。
 ```
 
 Revision-state conversion examples:
 
 ```text
-终极进化形态改为主角身后偏上方的大型虚影
--> 终极进化形态位于主角身后偏上方，形成大型虚影层
+<辅助形态>改为主角身后偏上方的大型虚影
+-> <辅助形态>位于主角身后偏上方，形成大型虚影层
 
-背景威胁保持为后景上半部的巨大正面巨骨舌鱼黑影
--> 背景威胁为后景上半部的巨大正面巨骨舌鱼黑影
+<背景威胁>保持为后景上半部的巨大正面黑影
+-> <背景威胁>位于后景上半部，呈巨大正面黑影，并保留体积、厚度、边缘反光和空间遮挡
 
 动作关系参考示例图
--> 本体前冲，后方虚影顺势上扬，形成前低后高的冲势关系
+-> <主体A>沿前方动线冲出，<主体B>在后上方顺势上扬，形成前低后高的冲势关系
 ```
 
 Recommended note above the block:

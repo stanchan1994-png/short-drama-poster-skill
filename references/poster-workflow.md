@@ -10,6 +10,7 @@ Collect only what is needed:
 - 风格模式: realistic, semi-realistic illustration, anime/cartoon, or 3D anime.
 - 角色三视图: primary character-design references; ask which turnaround belongs to which role.
 - 风格/构图参考图: visual language references only; use for framing and finish, not for copying text or people.
+- 动作/关系参考图: pose, motion, impact, force direction, and hierarchy references only; use for staging, not for copying identity or visual design.
 - Output need: pure poster base, title-safe base, title rendered image, or redraw instructions.
 
 If information is missing, proceed with a labeled assumption instead of blocking. Ask only when identity mapping or output type is impossible to infer.
@@ -42,6 +43,16 @@ If style/composition references are provided, add a short extraction block befor
 
 - 风格参考图 1：只继承<构图 / 景别 / 光影 / 色调 / 标题安全区位置>
 - 明确排除：<剧名文字 / 人物长相 / 服装细节 / 原海报道具 / logo / 水印 / 平台元素>
+
+If action/relationship references are provided, add a short extraction block before directions:
+
+- 动作参考图 1：只继承<姿态 / 动线 / 受力方向 / 接触关系 / 镜头角度 / 前后层级>
+- 明确排除：<角色身份 / 物种或类型 / 配色 / 材质 / 文字 / 道具 / 原图剧情>
+
+In multi-turn revision, keep an explicit latest-correction note when the user overwrites prior rules:
+
+- 最新覆盖：<旧设定> -> <新设定>
+- 后续平台词只保留新设定，不混写旧称呼、旧姿态、旧材质或旧构图。
 
 If any critical information is missing but inferable, write one short assumption block:
 
@@ -134,6 +145,20 @@ Useful style-reference phrasing:
 - 只借鉴版式、镜头距离、留白位置和商业完成度
 - 不反推参考图中的剧名、标题文案、角色长相和剧情道具
 
+When action/relationship references exist, change the writing strategy:
+
+- treat them as **staging references**, not design references
+- inherit pose, line of action, force direction, contact/impact relationship, rhythm, camera angle, and near-mid-far hierarchy
+- do not inherit identity, species/type, face, costume, colors, materials, props, title text, or plot content from the reference
+- rewrite meta phrases like `参考动作图` into direct result-state staging
+
+Useful action-reference phrasing:
+
+- 主体沿<动线方向>形成<动作张力>
+- <角色A>位于<位置>，<角色B>位于<位置>，两者形成<受力/追逐/压迫/保护/击中>关系
+- 镜头沿<角度>捕捉<冲刺 / 回望 / 撞击 / 拉扯 / 护住>瞬间
+- 不继承动作参考图中的角色外形、颜色、道具和文字信息
+
 If style mode is not realistic:
 
 - describe line quality, shape language, rendering mode, cel shading, painterly shading, or 3D anime material polish
@@ -178,6 +203,13 @@ When character turnarounds exist:
 - For anime/cartoon/3D anime, keep identity consistency through silhouette, face structure, eye spacing, palette, material language, and temperament rather than forcing realism.
 - If the poster has many characters, prioritize must-appear roles and allow secondary figures to be less detailed.
 
+For non-human, creature, mechanical, object, or heavily designed characters:
+
+- preserve the approved design's silhouette, structural proportions, category-defining markers, material language, palette, and temperament
+- use scene, posture, lighting, and expression/attitude to create drama instead of redesigning anatomy or type
+- add negative constraints only against adjacent archetypes that the model is likely to confuse with the approved design
+- keep this branch conditional; do not apply creature/object-specific constraints to ordinary human-cast posters
+
 ## 5a. Style/Composition Reference Handling
 
 When style/composition references exist:
@@ -189,7 +221,27 @@ When style/composition references exist:
 - if the sample poster is very specific, abstract it one level up before prompt writing
 - prefer phrases like `上中留白压标题`, `双人中近景对峙`, `冷暖对冲布光`, `群像阶梯层级`
 
-## 5b. Multi-Character Strategy
+## 5b. Multi-Turn Override And Material State
+
+When the user corrects a prior rule, the latest correction wins:
+
+- replace old names, object types, poses, colors, material states, title rules, and focus hierarchy in the next platform prompt
+- do not keep both versions for safety
+- if the user says the older version should return, treat that as a new latest correction
+
+When the user requests a material-state transformation, specify both preserved identity and transformed state:
+
+- Solid body: physical volume, surface material, contact shadows, scene lighting integration.
+- Hologram/projection: opacity level, scan/light texture, edge glow, internal transparency, no physical mass unless requested.
+- Energy/spirit form: preserved silhouette or palette if requested, translucent body, luminous edge, inner flow, partial dissipation, non-solid material.
+- Shadow/silhouette form: visible volume cues, occlusion, rim reflection, atmospheric depth, not a flat black cutout unless requested.
+
+Setting elements such as UI panels, projections, symbols, props, and background threats are focus-controlled:
+
+- if the user specifies a main subject, secondary setting elements must be smaller, dimmer, softer, lower contrast, or spatially behind/around it
+- if the user specifies the setting element as the main visual, then it may become larger, brighter, sharper, or centered
+
+## 5c. Multi-Character Strategy
 
 When cast size is 3+:
 
