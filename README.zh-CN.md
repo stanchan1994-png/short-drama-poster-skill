@@ -107,7 +107,7 @@ Use short-drama-poster. Make it a 3D anime commercial poster with a strong two-p
 
 如果用户明确要“带标题成图”，输出里还应包含标题层说明或直接带字版本扩展。
 
-如果用户说 `复盘`、`总结这次使用`、`整理这次对话` 或 `输出复盘文件`，skill 应切换为 `Case Summary` 模式，输出一份统一结构的复盘记录，而不是继续出图。
+如果用户说 `复盘`、`总结这次使用`、`整理这次对话` 或 `输出复盘文件`，skill 应切换为 `Case Summary` 模式，输出一份统一结构的复盘记录，而不是继续出图。复盘不逐句记录完整对话，只记录对 skill 迭代有价值的跑偏、纠正、回退和最终有效约束。
 
 ## 支持的风格模式
 
@@ -128,3 +128,4 @@ Use short-drama-poster. Make it a 3D anime commercial poster with a strong two-p
 - 面向小白用户时，优先展示“平台投喂版 Prompt”；工作流 JSON 应作为默认折叠的附加信息
 - 平台投喂版 Prompt 必须是纯画面指令，不能混入“你给的”“如果你要”“我可以再给你一版”这类对话污染
 - 复盘模式下必须只输出统一格式的 Case Summary，不继续生成新海报方案
+- 复盘结论必须区分通用规则、条件分支规则和案例备注，不要把单个案例的具体设定直接写成全局规则

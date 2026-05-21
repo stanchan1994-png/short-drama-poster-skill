@@ -6,9 +6,12 @@ The goal is not to make a new poster prompt. The goal is to extract:
 
 - what the user was trying to do
 - what the skill originally produced
-- what the user changed by hand
+- what the user corrected because the skill went wrong
+- what was fixed and later regressed
 - what specific failures were exposed
 - what rules or examples should be updated next
+
+Do not summarize every sentence in a long conversation. Keep only skill-relevant errors, corrections, regressions, final effective constraints, and generated-result feedback.
 
 ## Trigger Phrases
 
@@ -47,15 +50,22 @@ Return a single markdown code block and nothing else outside it.
 - 负向约束的核心内容：不出现额外文字、不要把主角画成红金锦鲤、不要把终极投影画成前景实体
 - 如果有多个方向，分别概括：本轮为改词，没有重新出三套方向
 
-## 4. 用户后续修改
-- `终极进化形态改为主角身后偏上方的大型虚影` -> `终极进化形态位于主角身后偏上方，形成大型虚影层`
-- `背景威胁保持为后景上半部的巨大正面巨骨舌鱼黑影` -> `背景威胁为后景上半部的巨大正面巨骨舌鱼黑影`
-- `动作关系参考示例图` -> `本体前冲，后方虚影顺势上扬，形成前低后高的冲势关系`
+## 4. 用户关键纠正与回退点
+- 跑偏：平台投喂词写成修改过程，出现 `改为`、`保持为`、`参考示例图`
+  用户纠正：平台词必须写最终画面结果，不写改稿说明
+  后续状态：已修好
+  可提炼问题：改词模式需要结果态输出规则
+
+- 跑偏：终极形态被写成去固有色的蓝白全息投影
+  用户纠正：虚影需要保留角色原有配色，但材质是半透明能量态
+  后续状态：后续又回退过
+  可提炼问题：多轮修改中，最新用户纠正必须覆盖旧设定
 
 ## 5. 暴露出的具体问题
 - 平台投喂词混入了 `改为`、`保持为` 这类修订态表述
 - 平台投喂词混入了 `参考示例图` 这类流程指代
 - 改词场景下，输出仍然在描述修改动作，而不是直接描述最终画面结果
+- 长对话中已修正的信息可能被后续输出改回旧版本
 
 ## 6. 结果判断
 - 哪些部分可用：角色层级、环境设定、负向约束大体可用
@@ -65,7 +75,9 @@ Return a single markdown code block and nothing else outside it.
 
 ## 7. 可供规则迭代的结论
 - 应新增的硬规则：改词模式下禁止出现 `改为/改成/保持为/参考示例图`
+- 应新增的条件分支规则：当用户要求“保留原有配色但改为非实体/能量态/全息态”时，同时约束颜色保留与材质非实体化
 - 应补充的负面示例：补一组修订态句子改写为结果态句子的 few-shot
 - 应修改的默认输出方式：改词模式优先输出最终平台词，不强化流程说明
 - 应删除或弱化的旧规则：弱化容易诱发“修改态语言”的整图重绘模板措辞
+- 仅作为案例备注，不应写入通用规则：本案例里的具体物种名、角色名、剧情名只保留在案例记录中，不直接写成全局规则
 ```

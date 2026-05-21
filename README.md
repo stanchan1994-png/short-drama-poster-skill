@@ -107,7 +107,7 @@ Standard output should include:
 
 If the user explicitly wants a title-rendered poster, the output should also include title-layer guidance or a direct title-rendered extension.
 
-If the user says `复盘`, `总结这次使用`, `整理这次对话`, or `输出复盘文件`, the skill should switch to `Case Summary` mode and output a structured post-use record instead of continuing prompt generation.
+If the user says `复盘`, `总结这次使用`, `整理这次对话`, or `输出复盘文件`, the skill should switch to `Case Summary` mode and output a structured post-use record instead of continuing prompt generation. Case summaries should not record every sentence; they should keep only skill-relevant failures, user corrections, regressions, and final effective constraints.
 
 ## Style Modes
 
@@ -130,3 +130,4 @@ The style branch matters because the skill should not force realistic skin or fi
 - For beginner-facing output, show the platform-ready prompt first and treat workflow JSON as collapsed optional support information
 - Platform-ready prompts must stay as pure image instructions and should not contain dialogue residue such as "you provided", "if you want", or "I can give another version"
 - In case-summary mode, output only the structured Case Summary record and do not continue poster generation
+- Case-summary conclusions must separate universal rules, conditional branch rules, and case-only notes. Do not turn one case's concrete setting directly into a global rule.

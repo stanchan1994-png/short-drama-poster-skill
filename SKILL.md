@@ -56,20 +56,24 @@ For a "复盘 / 总结 / case summary / 复盘文件" request, output:
    - `## 1. 本次任务`
    - `## 2. 原始输入关键信息`
    - `## 3. Skill 原始输出摘要`
-   - `## 4. 用户后续修改`
+   - `## 4. 用户关键纠正与回退点`
    - `## 5. 暴露出的具体问题`
    - `## 6. 结果判断`
    - `## 7. 可供规则迭代的结论`
 3. Write only factual summary from the current conversation or current skill-use context.
 4. Do not continue image creation or propose a new poster direction in case-summary mode.
 5. Do not write greetings, encouragement, or extra explanation outside the code block.
-6. In `## 4. 用户后续修改`, list edits in `原句 -> 改后` form whenever the changes are recoverable from context.
-7. In `## 5. 暴露出的具体问题`, list concrete observable failures only, not abstract taste judgments.
-8. In `## 7. 可供规则迭代的结论`, write short actionable lines under:
+6. Do not record every sentence from a long conversation. Record only skill-relevant failures, user corrections, later regressions, final effective constraints, and generated-result feedback.
+7. In `## 4. 用户关键纠正与回退点`, use compact records such as `跑偏：... / 用户纠正：... / 后续状态：已修好|后续又回退|未验证 / 可提炼问题：...`.
+8. In `## 5. 暴露出的具体问题`, list concrete observable failures only, not abstract taste judgments.
+9. In `## 7. 可供规则迭代的结论`, separate conclusions into universal rules, conditional branch rules, and case-only notes. Do not directly turn case-specific details into global skill rules.
+10. In `## 7. 可供规则迭代的结论`, write short actionable lines under:
    - `应新增的硬规则`
+   - `应新增的条件分支规则`
    - `应补充的负面示例`
    - `应修改的默认输出方式`
    - `应删除或弱化的旧规则`
+   - `仅作为案例备注，不应写入通用规则`
 
 For a normal "make a poster prompt" request, output:
 
