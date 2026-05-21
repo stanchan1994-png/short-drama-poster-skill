@@ -7,6 +7,8 @@ description: End-to-end Chinese short-drama poster workflow for AI agents. Use w
 
 Use this skill to turn a short-drama brief, script, style direction, character turnarounds, or an existing poster into a practical AI poster workflow. Default to Chinese output unless the user asks otherwise.
 
+If the user asks to `复盘`, `总结这次使用`, `整理这次对话`, `输出 case summary`, `输出复盘文件`, or anything similar, switch into **case-summary mode** instead of generating a new poster prompt.
+
 The default mode is commercial short-drama realism, but this skill also supports:
 
 - multi-character posters with clear hierarchy and role priority
@@ -45,6 +47,29 @@ The default mode is commercial short-drama realism, but this skill also supports
 - For stable rendered-title output patterns, read `references/title-fewshots.md`.
 
 ## Default Output Shape
+
+For a "复盘 / 总结 / case summary / 复盘文件" request, output:
+
+1. A single fenced markdown code block.
+2. Inside the code block, use this exact structure:
+   - `# Case Summary`
+   - `## 1. 本次任务`
+   - `## 2. 原始输入关键信息`
+   - `## 3. Skill 原始输出摘要`
+   - `## 4. 用户后续修改`
+   - `## 5. 暴露出的具体问题`
+   - `## 6. 结果判断`
+   - `## 7. 可供规则迭代的结论`
+3. Write only factual summary from the current conversation or current skill-use context.
+4. Do not continue image creation or propose a new poster direction in case-summary mode.
+5. Do not write greetings, encouragement, or extra explanation outside the code block.
+6. In `## 4. 用户后续修改`, list edits in `原句 -> 改后` form whenever the changes are recoverable from context.
+7. In `## 5. 暴露出的具体问题`, list concrete observable failures only, not abstract taste judgments.
+8. In `## 7. 可供规则迭代的结论`, write short actionable lines under:
+   - `应新增的硬规则`
+   - `应补充的负面示例`
+   - `应修改的默认输出方式`
+   - `应删除或弱化的旧规则`
 
 For a normal "make a poster prompt" request, output:
 
