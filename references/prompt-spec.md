@@ -148,8 +148,14 @@ Compression priority when over limit:
 1. Remove repeated emotional adjectives.
 2. Merge repeated negative constraints.
 3. Shorten transition words and helper phrases.
-4. Keep character hierarchy, composition, lighting, scene, and title-safe-area before secondary polish language.
-5. Keep identity-lock and key conflict information even in compressed form.
+4. Keep visual weight, shot size, face clarity, reference locks, character hierarchy, composition, lighting, scene, and title-safe-area before secondary polish language.
+5. Keep identity-lock, selling-character readability, and key conflict information even in compressed form.
+
+Visual-weight writing rules:
+
+- If the user says a role is a selling point, make that role readable through shot size, face clarity, focus, light, and foreground/midground placement.
+- If two roles must share visual importance, state that they are in the same or comparable shot size and neither is pushed into background blur.
+- Keep small foreground mascots, props, or memory points readable without stealing the main human-character focus unless the user says otherwise.
 
 Bad example:
 

@@ -254,6 +254,8 @@ When cast size is 3+:
 
 - decide who owns the visual center before prompt writing
 - set strict role priority: must-read, support-read, atmosphere-only
+- if more than one role is a commercial selling point, state their shared or relative shot size before prompt writing
+- do not push a selling character into background blur, tiny face scale, or vague second-focus language unless the user explicitly wants that hierarchy
 - avoid equal spacing and equal brightness
 - use depth, overlap, and light hierarchy to prevent "all characters lined up"
 - use one shared light source or clearly related light logic across all roles

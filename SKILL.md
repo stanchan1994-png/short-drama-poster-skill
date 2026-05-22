@@ -136,6 +136,7 @@ For an "edit/redraw this poster" request, output:
 - Put characters first. Short-drama posters must make faces, posture, and relationship readable at thumbnail size.
 - Avoid empty scenic posters unless the story is landscape-driven. In most cases, people should occupy 60%-85% of the poster height depending on cast size.
 - For multi-character posters, do not distribute attention evenly. The main role must stay largest, clearest, and visually brightest.
+- If multiple characters are selling points, write their relative visual weight directly: shared shot size, face clarity, foreground/midground position, brightness, and focus. Do not imply an important selling character only through vague "behind" or "second focus" wording if their face and appeal must read clearly.
 - Do not generate visible text inside the image unless the user explicitly requests title rendering.
 - Preserve a title-safe area even when no title will be added by the image model.
 - If title rendering is requested, title readability must never destroy face readability or relationship clarity.
@@ -162,5 +163,5 @@ For an "edit/redraw this poster" request, output:
 - Translate user wording into visual language before writing the platform-ready prompt. Do not paste casual user phrasing, relationship labels, or abstract intent directly when it can be rendered as pose, gaze, distance, contact, blocking, lighting, or hierarchy.
 - For multi-character or layered compositions, specify shared light source, shared color temperature, atmospheric perspective, contact/occlusion, scale relationship, and edge integration so characters do not look pasted together.
 - Platform-ready prompts must stay within **1900 Chinese characters** unless the user explicitly asks for a longer version.
-- If the prompt is too long, compress in this order: remove repeated style adjectives, merge similar negative constraints, shorten explanatory transitions, keep composition/character/lighting/title-safe-area first.
+- If the prompt is too long, compress in this order: remove repeated style adjectives, merge similar negative constraints, shorten explanatory transitions, keep visual weight, shot size, face clarity, reference locks, composition, lighting, and title-safe-area first.
 - If the requested style is anime, cartoon, or 3D anime, replace realism-specific language with line, shape, material, rendering, and silhouette language instead of forcing photo-real skin rules.
