@@ -210,6 +210,13 @@ For non-human, creature, mechanical, object, or heavily designed characters:
 - add negative constraints only against adjacent archetypes that the model is likely to confuse with the approved design
 - keep this branch conditional; do not apply creature/object-specific constraints to ordinary human-cast posters
 
+When the story defines identity links between roles:
+
+- true form / avatar / incarnation / companion form / summoned form / mirror form / spirit counterpart describe relationship, not automatic appearance mutation
+- keep each role's referenced design intact unless the user explicitly asks for hybridization or transformation
+- express the relationship through staging: gaze, distance, blocking, shared light, shadow overlap, reflection, echoing pose, or composition hierarchy
+- avoid inventing master-pet, guardian, romantic, hostile, or ownership dynamics unless the user states that relationship
+
 ## 5a. Style/Composition Reference Handling
 
 When style/composition references exist:
@@ -249,6 +256,9 @@ When cast size is 3+:
 - set strict role priority: must-read, support-read, atmosphere-only
 - avoid equal spacing and equal brightness
 - use depth, overlap, and light hierarchy to prevent "all characters lined up"
+- use one shared light source or clearly related light logic across all roles
+- keep color temperature, atmospheric perspective, shadow direction, contact/occlusion, and edge softness consistent across layers
+- when adding a new role behind or around existing subjects, state how that role integrates into the same scene space instead of reading like a pasted cutout
 - simplify minor faces before sacrificing the lead role readability
 
 ## 6. Whole-Image Redraw

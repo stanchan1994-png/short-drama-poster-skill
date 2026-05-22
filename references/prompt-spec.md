@@ -85,6 +85,8 @@ Turnaround writing rules:
 - Do not add invented anatomy, species correction, material replacement, age reduction, or face-shape rewrite keywords.
 - Use expression, posture, wardrobe, props, and lighting to create drama instead of rewriting the design.
 - Do not turn design constraints into assistant commentary. Write the constraint directly into the scene description.
+- If two roles have an identity link such as true form, avatar, incarnation, companion form, summoned form, mirror form, or spirit counterpart, preserve both role designs independently unless the user asks for a hybrid or transformed appearance.
+- Express identity links through staging and composition instead of appearance mutation.
 
 Style/composition reference writing rules:
 
@@ -133,6 +135,13 @@ Language shape for platform-ready prompts:
 - Each sentence should describe visible content, composition, lighting, material, or explicit negative constraint.
 - Do not explain why a choice exists.
 - Do not mention the user, the assistant, the workflow, the revision process, or the reference handoff.
+- Do not paste casual user phrasing directly. Convert it into visible pose, gaze, distance, contact, motion, blocking, lighting, or hierarchy.
+
+Multi-character integration rules:
+
+- For layered or multi-character scenes, state shared light source, color temperature, atmospheric perspective, contact/occlusion, scale relationship, and edge softness.
+- Newly added background or side characters must belong to the same scene space through light, shadow, occlusion, and depth cues.
+- If a character is emotionally distant, supportive, threatening, curious, or detached, express it through gaze, posture, distance, and lighting instead of abstract labels alone.
 
 Compression priority when over limit:
 

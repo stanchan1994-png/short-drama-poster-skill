@@ -145,6 +145,7 @@ For an "edit/redraw this poster" request, output:
 - If character turnarounds are provided, treat this skill as **turnaround-driven generation first**, not free character invention.
 - With character turnarounds, do not invent or over-specify facial features, body proportions, species traits, materials, colors, silhouette markers, or hairstyle changes unless the user explicitly asks for those changes.
 - With character turnarounds, keep appearance language minimal and identity-safe: describe only role hierarchy, expression, gaze, posture, wardrobe, shot size, and lighting that help the poster read better without changing the approved design.
+- If the story contains identity links such as true form, avatar, incarnation, companion form, summoned form, mirror form, or spirit counterpart, do not translate that relationship into appearance mutation unless the user explicitly asks. Preserve each referenced design as shown and express the link through staging, gaze, proximity, light, shadow, or composition.
 - If a style/composition reference is provided, use it only for composition, camera distance, cropping rhythm, negative space, color tendency, lighting logic, and poster finish.
 - Never copy visible text, title wording, font content, character identity details, face description, clothing specifics, props, jewelry, logos, watermarks, or plot-specific visual clues from a style/composition reference unless the user explicitly asks to inherit that exact element.
 - If an action/relationship reference is provided, inherit only pose, motion path, force direction, contact/impact relationship, camera angle, and foreground/background hierarchy; do not inherit character identity, species/type, colors, materials, text, props, or story content from that reference.
@@ -158,6 +159,8 @@ For an "edit/redraw this poster" request, output:
 - In platform-ready prompts, forbid phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `这一版`, `再给你一版`, `视觉上让人一眼明白`, `这是XX设定`, `改为`, `改成`, `保持为`, `参考示例图`, `按示例图`.
 - In platform-ready prompts, replace supervisory or explanatory wording with direct visible constraints.
 - In revision mode, write the final image as an already-decided result state. Do not write edit instructions such as `把A改为B`, `保持为`, `改成`, or `参考示例图中的关系`.
+- Translate user wording into visual language before writing the platform-ready prompt. Do not paste casual user phrasing, relationship labels, or abstract intent directly when it can be rendered as pose, gaze, distance, contact, blocking, lighting, or hierarchy.
+- For multi-character or layered compositions, specify shared light source, shared color temperature, atmospheric perspective, contact/occlusion, scale relationship, and edge integration so characters do not look pasted together.
 - Platform-ready prompts must stay within **1900 Chinese characters** unless the user explicitly asks for a longer version.
 - If the prompt is too long, compress in this order: remove repeated style adjectives, merge similar negative constraints, shorten explanatory transitions, keep composition/character/lighting/title-safe-area first.
 - If the requested style is anime, cartoon, or 3D anime, replace realism-specific language with line, shape, material, rendering, and silhouette language instead of forcing photo-real skin rules.
