@@ -100,6 +100,19 @@ Action/relationship reference writing rules:
 - Extract only pose, motion path, force direction, contact/impact relationship, camera angle, and foreground/background hierarchy.
 - Do not inherit character identity, species/type, face, costume, color, material, props, title text, or original plot content.
 - Convert `参考动作图` into a direct result-state sentence.
+- For high-motion poses, include camera angle, center of gravity, limb/edge positions, motion direction, expression state, and whether motion blur is allowed or limited.
+
+Outpainting/aspect-ratio conversion writing rules:
+
+- State the target ratio explicitly.
+- Preserve subject identity, pose, expression, design, lighting, and composition center.
+- Extend only edge environment, background, atmosphere, and negative space unless subject redraw is requested.
+- Forbid new main subjects, face redesign, costume redesign, pose change, and center shift unless requested.
+
+Non-human/designed-character local-lock rules:
+
+- When visible, lock high-drift local identifiers such as face markings, color-block boundaries, eye area, nose/mouth or front structure, ear/horn/tail/limb tips, special marks, and other approved local features.
+- Use local-lock language only when the role is non-human, creature, mechanical, object-like, or heavily designed; do not apply it to ordinary human portraits unless the user identifies a specific local mark.
 
 Multi-turn override writing rules:
 

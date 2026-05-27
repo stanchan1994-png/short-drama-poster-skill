@@ -30,8 +30,16 @@ Before writing directions, classify the request into one of three routes:
 - `无字底图`: no visible text in the image, but keep a clean title-safe area
 - `带字成图`: title rendered in-image, usually only the main title unless the user asks for more copy
 - `整图重绘`: preserve identity/relationship/composition logic from an existing poster and rebuild the whole image
+- `扩图/改比例`: preserve the subject and extend the canvas/environment to a target ratio
 
 If the user says "出封面", "做成品图", or "直接发平台", do not guess. Briefly judge whether they mean `带字成图` or just a cleaner `无字底图`.
+
+If the user asks for outpainting, aspect-ratio conversion, horizontal/vertical expansion, or canvas extension, route to `扩图/改比例`:
+
+- preserve the existing subject, pose, expression, identity design, lighting, and composition center
+- extend only edge environment, background, atmosphere, and negative space unless the user explicitly asks to redraw the subject
+- state the target ratio explicitly
+- forbid new main subjects, face redesign, costume redesign, pose change, and center shift unless requested
 
 If character turnarounds are provided, add a short role-binding block before directions:
 
@@ -151,6 +159,7 @@ When action/relationship references exist, change the writing strategy:
 - inherit pose, line of action, force direction, contact/impact relationship, rhythm, camera angle, and near-mid-far hierarchy
 - do not inherit identity, species/type, face, costume, colors, materials, props, title text, or plot content from the reference
 - rewrite meta phrases like `参考动作图` into direct result-state staging
+- for high-motion poses, specify camera angle, center of gravity, limb/edge positions, motion direction, expression state, and motion-blur boundary
 
 Useful action-reference phrasing:
 
@@ -206,6 +215,7 @@ When character turnarounds exist:
 For non-human, creature, mechanical, object, or heavily designed characters:
 
 - preserve the approved design's silhouette, structural proportions, category-defining markers, material language, palette, and temperament
+- lock visible high-drift local identifiers: face markings, color-block boundaries, eye area, nose/mouth or front structure, ear/horn/tail/limb tips, special marks, and other approved local features
 - use scene, posture, lighting, and expression/attitude to create drama instead of redesigning anatomy or type
 - add negative constraints only against adjacent archetypes that the model is likely to confuse with the approved design
 - keep this branch conditional; do not apply creature/object-specific constraints to ordinary human-cast posters
