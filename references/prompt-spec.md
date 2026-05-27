@@ -98,7 +98,7 @@ Style/composition reference writing rules:
 Action/relationship reference writing rules:
 
 - Extract only pose, motion path, force direction, contact/impact relationship, camera angle, and foreground/background hierarchy.
-- Do not inherit character identity, species/type, face, costume, color, material, props, title text, or original plot content.
+- Do not inherit character identity, species/type, temperament, era feel, profession feel, style finish, face, costume, color, material, props, title text, or original plot content.
 - Convert `参考动作图` into a direct result-state sentence.
 - For high-motion poses, include camera angle, center of gravity, limb/edge positions, motion direction, expression state, and whether motion blur is allowed or limited.
 
@@ -138,6 +138,7 @@ Rules:
 - Merge the useful parts of `Chinese Complete Prompt`, title instructions if needed, and negative constraints into one clean prompt block.
 - Do not include assistant/user dialogue residue or explanation language.
 - Ban phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `视觉上让人一眼明白`, `这是XX设定`, `这一版`, `再给你一版`, `改为`, `改成`, `保持为`, `参考示例图`, `按示例图`.
+- Do not include image filenames, attachment names, local paths, numbered file references, or raw reference labels in platform-ready prompts.
 - Avoid supervisory phrasing such as `必须严格参考`, `需要让人看出`, `必须明确可见`. Convert them into direct scene constraints.
 - Hard limit: keep the final `Platform-Ready Prompt` within **1900 Chinese characters** unless the user explicitly asks for a longer platform version.
 - In revision mode, output the final desired picture directly. Do not describe the act of modifying from an old version to a new version.

@@ -157,7 +157,7 @@ When action/relationship references exist, change the writing strategy:
 
 - treat them as **staging references**, not design references
 - inherit pose, line of action, force direction, contact/impact relationship, rhythm, camera angle, and near-mid-far hierarchy
-- do not inherit identity, species/type, face, costume, colors, materials, props, title text, or plot content from the reference
+- do not inherit identity, species/type, temperament, era feel, profession feel, style finish, face, costume, colors, materials, props, title text, or plot content from the reference
 - rewrite meta phrases like `参考动作图` into direct result-state staging
 - for high-motion poses, specify camera angle, center of gravity, limb/edge positions, motion direction, expression state, and motion-blur boundary
 
@@ -167,6 +167,7 @@ Useful action-reference phrasing:
 - <角色A>位于<位置>，<角色B>位于<位置>，两者形成<受力/追逐/压迫/保护/击中>关系
 - 镜头沿<角度>捕捉<冲刺 / 回望 / 撞击 / 拉扯 / 护住>瞬间
 - 不继承动作参考图中的角色外形、颜色、道具和文字信息
+- 不继承动作参考图中的人物气质、年代感、职业感和风格质感
 
 If style mode is not realistic:
 
@@ -264,6 +265,7 @@ When cast size is 3+:
 
 - decide who owns the visual center before prompt writing
 - set strict role priority: must-read, support-read, atmosphere-only
+- keep character binding and identity consistency above crowd energy, comedy business, exaggerated motion, and background density
 - if more than one role is a commercial selling point, state their shared or relative shot size before prompt writing
 - do not push a selling character into background blur, tiny face scale, or vague second-focus language unless the user explicitly wants that hierarchy
 - avoid equal spacing and equal brightness
