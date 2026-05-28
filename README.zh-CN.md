@@ -8,7 +8,7 @@
 
 - 短剧海报方向策划
 - 中文完整提示词生成
-- JSON 结构化提示词生成
+- 用于复盘和二次编辑的工作流 JSON
 - 基于现有海报的整图重绘指令
 - 写实、半写实插画、动漫卡通、类 3D 动漫等风格分支
 - 支持带标题成图与中文字体排版规则
@@ -33,27 +33,27 @@
 - 支持 `写实电影感 / 半写实插画 / 动漫卡通 / 类3D动漫`
 - 支持“无字底图”和“直接带标题成图”两种输出方式
 - 支持 `1人 / 2人 / 3人 / 4-6人 / 大群像` 的不同构图逻辑
-- 输出中文完整提示词和 JSON 结构化提示词
+- 输出中文完整提示词、平台投喂版 Prompt 和工作流 JSON
 - 支持“保留人物关系，整图重做”的改图型需求
 - 内置短剧海报质检规则，方便最后做验收
 
 ## 仓库结构
 
-- [SKILL.md](/Users/edy/Documents/GitHub/short-drama-poster/SKILL.md)：主 skill 入口
-- [agents/openai.yaml](/Users/edy/Documents/GitHub/short-drama-poster/agents/openai.yaml)：agent 元数据
-- [references/poster-workflow.md](/Users/edy/Documents/GitHub/short-drama-poster/references/poster-workflow.md)：完整工作流
-- [references/prompt-spec.md](/Users/edy/Documents/GitHub/short-drama-poster/references/prompt-spec.md)：输出格式规范
-- [references/quality-checklist.md](/Users/edy/Documents/GitHub/short-drama-poster/references/quality-checklist.md)：验收与质检规则
-- [references/style-modes.md](/Users/edy/Documents/GitHub/short-drama-poster/references/style-modes.md)：风格模式与多人规则
-- [references/title-design.md](/Users/edy/Documents/GitHub/short-drama-poster/references/title-design.md)：带标题成图与字体规则
-- [references/font-library.md](/Users/edy/Documents/GitHub/short-drama-poster/references/font-library.md)：中文标题字体家族、字形分类与材质方向
-- [references/title-fewshots.md](/Users/edy/Documents/GitHub/short-drama-poster/references/title-fewshots.md)：带字海报稳定输出样板
-- [examples/realistic-urban-revenge.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/realistic-urban-revenge.md)：写实示例
-- [examples/semi-realistic-fantasy-romance.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/semi-realistic-fantasy-romance.md)：半写实插画示例
-- [examples/anime-family-secret.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/anime-family-secret.md)：动漫卡通示例
-- [examples/3d-anime-ensemble.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/3d-anime-ensemble.md)：类 3D 动漫示例
-- [examples/title-rendered-urban-power.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/title-rendered-urban-power.md)：带标题成图示例
-- [examples/prompt-cleanliness-bad-vs-good.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/prompt-cleanliness-bad-vs-good.md)：坏词与干净投喂词对照示例
+- [SKILL.md](./SKILL.md)：主 skill 入口
+- [agents/openai.yaml](./agents/openai.yaml)：agent 元数据
+- [references/poster-workflow.md](./references/poster-workflow.md)：完整工作流
+- [references/prompt-spec.md](./references/prompt-spec.md)：输出格式规范
+- [references/quality-checklist.md](./references/quality-checklist.md)：验收与质检规则
+- [references/style-modes.md](./references/style-modes.md)：风格模式与多人规则
+- [references/title-design.md](./references/title-design.md)：带标题成图与字体规则
+- [references/font-library.md](./references/font-library.md)：中文标题字体家族、字形分类与材质方向
+- [references/title-fewshots.md](./references/title-fewshots.md)：带字海报稳定输出样板
+- [examples/realistic-urban-revenge.md](./examples/realistic-urban-revenge.md)：写实示例
+- [examples/semi-realistic-fantasy-romance.md](./examples/semi-realistic-fantasy-romance.md)：半写实插画示例
+- [examples/anime-family-secret.md](./examples/anime-family-secret.md)：动漫卡通示例
+- [examples/3d-anime-ensemble.md](./examples/3d-anime-ensemble.md)：类 3D 动漫示例
+- [examples/title-rendered-urban-power.md](./examples/title-rendered-urban-power.md)：带标题成图示例
+- [examples/prompt-cleanliness-bad-vs-good.md](./examples/prompt-cleanliness-bad-vs-good.md)：坏词与干净投喂词对照示例
 
 ## 安装方式
 
@@ -79,12 +79,12 @@ cp -R /absolute/path/to/short-drama-poster ~/.codex/skills/short-drama-poster
 - “我要卡通版 / 动漫版 / 类 3D 动漫版”
 - “我要直接带字的短剧封面”
 - “根据这张海报整图重绘，保留人物关系”
-- “给我一个中文完整 prompt 和 JSON”
+- “给我一个中文完整 prompt、平台投喂词和工作流 JSON”
 
 典型调用方式：
 
 ```text
-Use short-drama-poster to turn this script into 3 poster directions, then give me one Chinese complete prompt and one JSON structured prompt.
+Use short-drama-poster to turn this script into 3 poster directions, then give me one Chinese complete prompt, one platform-ready prompt, and one collapsed Workflow JSON.
 ```
 
 如果想直接指定风格：

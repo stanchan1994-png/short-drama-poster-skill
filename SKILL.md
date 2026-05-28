@@ -1,6 +1,6 @@
 ---
 name: short-drama-poster
-description: End-to-end Chinese short-drama poster workflow for AI agents. Use when creating or reviewing short-drama, web drama, micro drama, romance/revenge/urban/fantasy poster directions, multi-character compositions, realistic/anime/cartoon/3D-anime poster styles, title-rendered poster versions, image-generation prompts, JSON prompt structures, character-consistency rules, title-safe-area guidance, whole-image redraw instructions, or poster quality checklists for Chinese users and AI image platforms.
+description: End-to-end Chinese short-drama poster workflow for AI agents. Use when creating or reviewing short-drama, web drama, micro drama, romance/revenge/urban/fantasy poster directions, multi-character compositions, realistic/anime/cartoon/3D-anime poster styles, title-rendered poster versions, image-generation prompts, Workflow JSON for revision control, character-consistency rules, title-safe-area guidance, whole-image redraw instructions, or poster quality checklists for Chinese users and AI image platforms.
 ---
 
 # Short Drama Poster
@@ -24,7 +24,7 @@ The default mode is commercial short-drama realism, but this skill also supports
 3. Decide the visual mode first: realistic, semi-realistic illustration, anime/cartoon, or 3D anime.
 4. Produce **3 distinct poster directions** before writing final prompts. Make the directions meaningfully different in composition, emotional temperature, commercial hook, and if useful, style execution.
 5. Decide whether the output is a title-free base or a title-rendered final poster.
-6. After a direction is chosen, produce a **Chinese complete prompt** and a **JSON structured prompt** for image platforms.
+6. After a direction is chosen, produce a **Chinese complete prompt**, a **platform-ready prompt**, and a collapsed **Workflow JSON** for revision control.
 7. Before the final prompt, state a short **task judgment**: normal poster base, title-rendered poster, or whole-image redraw. If you made assumptions, label them explicitly instead of hiding them.
 8. If references are provided, classify them first: **character turnaround reference**, **style/composition reference**, or **action/relationship reference**.
 9. If character turnarounds are provided, output a short **reference-role binding** block before writing prompts so each image is tied to a named role.
@@ -45,6 +45,7 @@ The default mode is commercial short-drama realism, but this skill also supports
 - For title rendering rules, read `references/title-design.md`.
 - For title glyph-family auto-matching, read `references/font-library.md`.
 - For stable rendered-title output patterns, read `references/title-fewshots.md`.
+- For deterministic platform-prompt linting, run `scripts/check_platform_prompt.py` on the final prompt text.
 
 ## Default Output Shape
 

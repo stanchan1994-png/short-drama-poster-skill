@@ -8,7 +8,7 @@ This skill is designed for:
 
 - short-drama poster direction planning
 - Chinese complete prompt generation
-- JSON structured prompt generation
+- Workflow JSON for revision and agent handoff
 - whole-image redraw instructions
 - realistic, semi-realistic illustration, anime/cartoon, and stylized 3D anime poster styles
 - title-rendered final poster versions with Chinese typography guidance
@@ -33,27 +33,27 @@ This skill turns a script, synopsis, character references, or an existing poster
 - Choose between realistic, semi-realistic, anime/cartoon, and 3D anime modes
 - Support title-free poster bases and title-rendered final poster versions
 - Support 1-person, 2-person, 3-person, 4-6 person, and large-cast poster logic
-- Produce Chinese complete prompts and JSON structured prompts
+- Produce Chinese complete prompts, platform-ready prompts, and workflow JSON
 - Handle whole-image redraw requests while preserving identity and composition constraints
 - Run a final quality pass using commercial poster checks
 
 ## Repository Structure
 
-- [SKILL.md](/Users/edy/Documents/GitHub/short-drama-poster/SKILL.md): main skill instructions
-- [agents/openai.yaml](/Users/edy/Documents/GitHub/short-drama-poster/agents/openai.yaml): agent metadata
-- [references/poster-workflow.md](/Users/edy/Documents/GitHub/short-drama-poster/references/poster-workflow.md): step-by-step workflow
-- [references/prompt-spec.md](/Users/edy/Documents/GitHub/short-drama-poster/references/prompt-spec.md): output format spec
-- [references/quality-checklist.md](/Users/edy/Documents/GitHub/short-drama-poster/references/quality-checklist.md): review rules
-- [references/style-modes.md](/Users/edy/Documents/GitHub/short-drama-poster/references/style-modes.md): style branching rules
-- [references/title-design.md](/Users/edy/Documents/GitHub/short-drama-poster/references/title-design.md): title-rendering and typography rules
-- [references/font-library.md](/Users/edy/Documents/GitHub/short-drama-poster/references/font-library.md): reverse-engineered Chinese title families and material directions
-- [references/title-fewshots.md](/Users/edy/Documents/GitHub/short-drama-poster/references/title-fewshots.md): stable rendered-title few-shot patterns
-- [examples/realistic-urban-revenge.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/realistic-urban-revenge.md): realistic example
-- [examples/semi-realistic-fantasy-romance.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/semi-realistic-fantasy-romance.md): semi-realistic example
-- [examples/anime-family-secret.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/anime-family-secret.md): anime/cartoon example
-- [examples/3d-anime-ensemble.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/3d-anime-ensemble.md): stylized 3D anime example
-- [examples/title-rendered-urban-power.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/title-rendered-urban-power.md): title-rendered poster example
-- [examples/prompt-cleanliness-bad-vs-good.md](/Users/edy/Documents/GitHub/short-drama-poster/examples/prompt-cleanliness-bad-vs-good.md): bad-vs-good prompt cleanliness example
+- [SKILL.md](./SKILL.md): main skill instructions
+- [agents/openai.yaml](./agents/openai.yaml): agent metadata
+- [references/poster-workflow.md](./references/poster-workflow.md): step-by-step workflow
+- [references/prompt-spec.md](./references/prompt-spec.md): output format spec
+- [references/quality-checklist.md](./references/quality-checklist.md): review rules
+- [references/style-modes.md](./references/style-modes.md): style branching rules
+- [references/title-design.md](./references/title-design.md): title-rendering and typography rules
+- [references/font-library.md](./references/font-library.md): reverse-engineered Chinese title families and material directions
+- [references/title-fewshots.md](./references/title-fewshots.md): stable rendered-title few-shot patterns
+- [examples/realistic-urban-revenge.md](./examples/realistic-urban-revenge.md): realistic example
+- [examples/semi-realistic-fantasy-romance.md](./examples/semi-realistic-fantasy-romance.md): semi-realistic example
+- [examples/anime-family-secret.md](./examples/anime-family-secret.md): anime/cartoon example
+- [examples/3d-anime-ensemble.md](./examples/3d-anime-ensemble.md): stylized 3D anime example
+- [examples/title-rendered-urban-power.md](./examples/title-rendered-urban-power.md): title-rendered poster example
+- [examples/prompt-cleanliness-bad-vs-good.md](./examples/prompt-cleanliness-bad-vs-good.md): bad-vs-good prompt cleanliness example
 
 ## Installation
 
@@ -76,7 +76,7 @@ Use the skill when asking for:
 - short-drama poster directions
 - poster prompt optimization
 - multi-character poster staging
-- Chinese poster JSON prompt structures
+- workflow JSON for prompt revision and agent handoff
 - anime or 3D anime short-drama poster treatment
 - title-rendered poster generation
 - whole-image redraw instructions for an existing poster
@@ -84,7 +84,7 @@ Use the skill when asking for:
 Typical request:
 
 ```text
-Use short-drama-poster to turn this script into 3 poster directions, then give me one Chinese complete prompt and one JSON structured prompt.
+Use short-drama-poster to turn this script into 3 poster directions, then give me one Chinese complete prompt, one platform-ready prompt, and one collapsed Workflow JSON.
 ```
 
 For stylized output:
