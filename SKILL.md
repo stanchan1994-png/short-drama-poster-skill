@@ -22,21 +22,22 @@ The default mode is commercial short-drama realism, but this skill also supports
 1. Identify the strongest hook: relationship, power gap, reversal, revenge, identity reveal, forbidden love, family secret, or fantasy destiny.
 2. Extract visual roles: protagonist, opponent/love interest, supporting power figure, child/family member, hidden antagonist.
 3. Decide the visual mode first: realistic, semi-realistic illustration, anime/cartoon, or 3D anime.
-4. Produce **3 distinct poster directions** before writing final prompts. Make the directions meaningfully different in composition, emotional temperature, commercial hook, and if useful, style execution.
-5. Decide whether the output is a title-free base or a title-rendered final poster.
-6. After a direction is chosen, produce a **platform-ready prompt** as the single default prompt output. Do not show a Chinese complete prompt unless the user asks for full explanation, plan review, or handoff to another AI. Do not show Workflow JSON unless the user explicitly asks for workflow, JSON, structured handoff, agent handoff, or recap/debug metadata.
-7. Before the final prompt, state a short **task judgment**: normal poster base, title-rendered poster, or whole-image redraw. If you made assumptions, label them explicitly instead of hiding them.
-8. If references are provided, classify them first: **character turnaround reference**, **style/composition reference**, or **action/relationship reference**.
-9. If character turnarounds are provided, output a short **reference-role binding** block before writing prompts so each image is tied to a named role.
-10. For normal poster-base generation, default to a **2:3 vertical poster ratio** unless the user specifies another ratio or platform format. Do not include pixel dimensions by default.
-11. Keep the image title-free by default: no rendered title text, no logo, no watermark, and a clean title-safe area.
-12. If the user explicitly wants a poster with title text, generate both the poster-base prompt and a title-layer or title-rendered version with typography guidance. The default title-rendered version should contain only the main drama title unless the user explicitly asks for subtitle, slogan, platform line, or extra copy.
-13. If title rendering is requested, auto-match a title glyph family from `references/font-library.md` based on genre, relationship tone, and style mode before assigning material treatment.
-14. Material treatment for title-rendered posters must be derived from the poster look itself: same glyph family can render as silver metal, warm gold foil, dry-brush white, enamel, glow, or premium 3D highlight depending on story type.
-15. If the user provides an existing poster, treat the task as whole-image redraw unless they explicitly ask for local masking. Preserve the requested identity/composition/style constraints and generate new redraw instructions.
-16. Once the user has chosen a direction and is refining generated results, switch into **precision-control revision**: keep one方案 and tighten camera, scale, placement, lighting, perspective, and deleted elements instead of offering new directions or casual shorter variants.
-17. Keep every prompt-like output block within **1900 Chinese characters** by default, because many image platforms have prompt-length limits.
-18. Finish with a short quality checklist and concrete fixes.
+4. Before producing directions, run **visual dominance routing**: identify the first dominant driver, second dominant driver, and forbidden misread. Use only these abstract categories: `人物主导`, `关系主导`, `道具主导`, `空间主导`, `符号主导`, `动作主导`.
+5. Produce **3 distinct poster directions** from different dominance combinations before writing final prompts. Make the directions meaningfully different in composition, emotional temperature, commercial hook, and if useful, style execution.
+6. Decide whether the output is a title-free base or a title-rendered final poster.
+7. After a direction is chosen, produce a **platform-ready prompt** as the single default prompt output. Do not show a Chinese complete prompt unless the user asks for full explanation, plan review, or handoff to another AI. Do not show Workflow JSON unless the user explicitly asks for workflow, JSON, structured handoff, agent handoff, or recap/debug metadata.
+8. Before the final prompt, state a short **task judgment**: normal poster base, title-rendered poster, or whole-image redraw. If you made assumptions, label them explicitly instead of hiding them.
+9. If references are provided, classify them first: **character turnaround reference**, **style/composition reference**, or **action/relationship reference**.
+10. If character turnarounds are provided, output a short **reference-role binding** block before writing prompts so each image is tied to a named role.
+11. For normal poster-base generation, default to a **2:3 vertical poster ratio** unless the user specifies another ratio or platform format. Do not include pixel dimensions by default.
+12. Keep the image title-free by default: no rendered title text, no logo, no watermark, and a clean lower-center title-safe area.
+13. If the user explicitly wants a poster with title text, generate both the poster-base prompt and a title-layer or title-rendered version with typography guidance. The default title-rendered version should contain only the main drama title unless the user explicitly asks for subtitle, slogan, platform line, or extra copy.
+14. If title rendering is requested, auto-match a title glyph family from `references/font-library.md` based on genre, relationship tone, and style mode before assigning material treatment.
+15. Material treatment for title-rendered posters must be derived from the poster look itself: same glyph family can render as silver metal, warm gold foil, dry-brush white, enamel, glow, or premium 3D highlight depending on story type.
+16. If the user provides an existing poster, treat the task as whole-image redraw unless they explicitly ask for local masking. Preserve the requested identity/composition/style constraints and generate new redraw instructions.
+17. Once the user has chosen a direction and is refining generated results, switch into **precision-control revision**: keep one方案 and tighten camera, scale, placement, lighting, perspective, and deleted elements instead of offering new directions or casual shorter variants.
+18. Keep every prompt-like output block within **1900 Chinese characters** by default, because many image platforms have prompt-length limits.
+19. Finish with a short quality checklist and concrete fixes.
 
 ## What To Read
 
@@ -102,22 +103,24 @@ For a normal "make a poster prompt" request, output:
 1. **Task judgment**: confirm this is a title-free base, title-rendered poster, or redraw task.
 2. **Assumptions**: only when information is missing.
 3. **Reference-role binding**: only when character turnarounds are provided.
-4. **3 poster directions**: title, hook, style mode, composition, characters, scene, lighting, title-safe area.
-5. **Recommended direction**: one concise reason.
-6. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, with no workflow metadata, capped at **1900 Chinese characters**.
-7. **Negative constraints** and quality checklist.
+4. **Visual dominance routing**: first dominant driver, second dominant driver, and forbidden misread.
+5. **3 poster directions**: title, dominance logic, hook, style mode, composition, characters, scene, lighting, title-safe area.
+6. **Recommended direction**: one concise reason.
+7. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, with no workflow metadata, capped at **1900 Chinese characters**.
+8. **Negative constraints** and quality checklist.
 
 For a "带标题成品图" or "直接做带字海报" request, output:
 
 1. **Task judgment**.
 2. **Assumptions**: only when needed.
 3. **Reference-role binding**: only when references exist.
-4. **3 poster directions** with title-safe-area reasoning.
-5. **Recommended direction**.
-6. **Title-rendered version** or title-layer instructions.
-7. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, capped at **1900 Chinese characters**.
-8. **Typography notes**: glyph family, material treatment, title style, placement, subtitle, billing, and avoidance rules.
-9. **Quality checklist**.
+4. **Visual dominance routing**: first dominant driver, second dominant driver, and forbidden misread.
+5. **3 poster directions** with dominance logic and title-safe-area reasoning.
+6. **Recommended direction**.
+7. **Title-rendered version** or title-layer instructions.
+8. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, capped at **1900 Chinese characters**.
+9. **Typography notes**: glyph family, material treatment, title style, placement, subtitle, billing, and avoidance rules.
+10. **Quality checklist**.
 
 For an "edit/redraw this poster" request, output:
 
@@ -139,6 +142,7 @@ For an "edit/redraw this poster" request, output:
 - If multiple characters are selling points, write their relative visual weight directly: shared shot size, face clarity, foreground/midground position, brightness, and focus. Do not imply an important selling character only through vague "behind" or "second focus" wording if their face and appeal must read clearly.
 - Do not generate visible text inside the image unless the user explicitly requests title rendering.
 - Preserve a title-safe area even when no title will be added by the image model.
+- Default title-safe area is a narrow lower-center area. Use upper, side, or other title-safe placements only when the composition, platform format, title-rendered design, or supplied style reference clearly requires it.
 - If title rendering is requested, title readability must never destroy face readability or relationship clarity.
 - If title rendering is requested, do not leave the title family unspecified. Always choose a base glyph family first, then assign a surface treatment that matches the poster style.
 - Avoid cheap cover aesthetics: collage clutter, random neon gradients, over-smoothed AI skin, tiny faces, bad hands, unreadable relationships, platform UI marks, fake logos, and watermark-like artifacts.
@@ -147,7 +151,14 @@ For an "edit/redraw this poster" request, output:
 - If the user says character references will be provided, prepare for turnaround-driven generation immediately: do not pre-commit invented age, face, hairstyle, body, species/type, material, color, or clothing details that may conflict with the later references.
 - If the user provides multiple named character turnarounds and does not mark any role as optional, assume all named roles must appear in the main poster or explicitly ask before omitting one.
 - With character turnarounds, do not invent or over-specify facial features, body proportions, species traits, materials, colors, silhouette markers, or hairstyle changes unless the user explicitly asks for those changes.
-- With character turnarounds, keep appearance language minimal and identity-safe: describe only role hierarchy, expression, gaze, posture, wardrobe, shot size, and lighting that help the poster read better without changing the approved design.
+- With character turnarounds, keep appearance language minimal and identity-safe: describe only role hierarchy, expression, gaze, posture, shot size, and lighting that help the poster read better without changing the approved design.
+- With character turnarounds, do not describe concrete clothing style, color, material, era, jewelry, headwear, armor, robe, uniform, or silhouette in platform-ready prompts by default. Use the generic lock sentence `服装造型按角色参考图，不重新设计服装` unless the user explicitly asks to extract clothing identifiers.
+- If the user explicitly asks to mention clothing identifiers, write only short preservation constraints for already-visible clothing markers and pair them with `不重新设计 / 不额外改造 / 不升级服装`. Never turn clothing markers into a new costume design brief.
+- In visual dominance routing, use only abstract drivers: `人物主导`, `关系主导`, `道具主导`, `空间主导`, `符号主导`, `动作主导`. Do not create topic-specific motif categories.
+- For main-poster or group-poster tasks, `关系主导` should default to placement, facing direction, gaze, distance, overlap, foreground/background hierarchy, and shared narrative focus. Do not turn interaction into hand-holding, reaching, pulling, or object-gazing unless the user explicitly asks for action.
+- For `道具主导`, decide whether the prop is the first narrative focus or a supporting clue. Core props need structure, state, placement, scale, and lighting, but must not become product shots.
+- For `符号主导`, symbols default to background pressure or connective structure. Do not let them steal face readability or first visual focus unless the user explicitly makes the symbol the main subject.
+- Enable `动作主导` only when the user explicitly asks for combat, chase, falling, impact, collision, protection, or similar action-first scenes.
 - If the story contains identity links such as true form, avatar, incarnation, companion form, summoned form, mirror form, or spirit counterpart, do not translate that relationship into appearance mutation unless the user explicitly asks. Preserve each referenced design as shown and express the link through staging, gaze, proximity, light, shadow, or composition.
 - If a style/composition reference is provided, use it only for composition, camera distance, cropping rhythm, negative space, color tendency, lighting logic, and poster finish.
 - Never copy visible text, title wording, font content, character identity details, face description, clothing specifics, props, jewelry, logos, watermarks, or plot-specific visual clues from a style/composition reference unless the user explicitly asks to inherit that exact element.
@@ -173,10 +184,10 @@ For an "edit/redraw this poster" request, output:
 - For multi-character or layered compositions, specify shared light source, shared color temperature, atmospheric perspective, contact/occlusion, scale relationship, and edge integration so characters do not look pasted together.
 - For complex realistic posters, state the physical light system directly: key light direction, secondary/rim light, practical light sources, ground reflections, fog/air layer, contact shadows, and whether background objects contribute light.
 - For large background symbols, screens, projections, celestial bodies, signs, or architectural shapes, state their depth, thickness/volume, camera angle, vanishing-line alignment, overlap with characters, and whether they are secondary atmosphere or the main focus.
-- Title-safe areas must remain narrow and purposeful. Do not create a large dead black region or waste the lower half of the poster just to reserve text space.
+- Title-safe areas must remain narrow and purposeful. Default to lower-center, and do not create a large dead black region or waste the lower half of the poster just to reserve text space.
 - For vehicles, buildings, machines, props, or other large scene objects that are not the main selling point, make them serve as narrative anchors, light sources, scale references, or spatial anchors instead of isolated showroom objects.
 - Background or rear-position characters must have a believable ground/contact anchor, occlusion relationship, and light connection; do not place them as floating cutouts or poster-board figures.
-- Character actions must fit the visible wardrobe, body mechanics, and role temperament. Avoid gestures that imply unintended meanings such as eavesdropping, awkward posing, or grooming if they do not serve the story.
+- Character actions must fit the visible reference design, body mechanics, and role temperament. Avoid gestures that imply unintended meanings such as eavesdropping, awkward posing, or grooming if they do not serve the story.
 - If the task is outpainting, aspect-ratio conversion, or canvas expansion, preserve the subject, pose, expression, design, lighting, and composition center; extend only the edge environment unless the user explicitly asks to redraw the subject.
 - Platform-ready prompts must stay within **1900 Chinese characters** unless the user explicitly asks for a longer version.
 - If the prompt is too long, compress in this order: remove repeated style adjectives, merge similar negative constraints, shorten explanatory transitions, keep visual weight, shot size, face clarity, reference locks, composition, lighting, and title-safe-area first.

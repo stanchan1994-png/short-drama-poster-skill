@@ -89,13 +89,44 @@ Rewrite the hook into one visual sentence, for example:
 
 > 女主在雨夜发现男主隐藏身份，两人隔着车窗与冷光对峙，关系从暧昧转为压迫。
 
-## 3. Generate Three Directions
+## 3. Visual Dominance Routing
+
+Before writing directions, decide what drives the poster image.
+
+Allowed drivers only:
+
+- `人物主导`: the selling point is face, identity, expression, status, or role appeal.
+- `关系主导`: the selling point is tension between two or more roles.
+- `道具主导`: the selling point is a concrete object, clue, or story device.
+- `空间主导`: the selling point is location, architecture, vehicle, room, city, disaster space, or environmental pressure.
+- `符号主导`: the selling point is an abstract sign, screen, projection, shadow, split, halo, countdown, fate mark, or visual metaphor.
+- `动作主导`: the selling point is combat, chase, fall, impact, collision, escape, or protection.
+
+Output a compact routing block before directions:
+
+```markdown
+画面主导关系判断：
+- 第一主导：<人物主导 / 关系主导 / 道具主导 / 空间主导 / 符号主导 / 动作主导>
+- 第二主导：<人物主导 / 关系主导 / 道具主导 / 空间主导 / 符号主导 / 动作主导>
+- 禁用误读：<最容易跑偏的理解>
+```
+
+Routing behavior:
+
+- If the task is a main poster or group poster, do not interpret interaction as physical action by default. Use gaze, facing direction, distance, overlap, foreground/background hierarchy, and shared narrative focus first.
+- If `道具主导` is selected, decide whether the prop is the first narrative focus or a supporting clue. Show structure, state, position, scale, and lighting, but do not turn it into a product shot.
+- If `空间主导` is selected, make the space serve as pressure, identity, action field, scale reference, or light source. Do not let it become empty scenery.
+- If `符号主导` is selected, keep the symbol as background pressure or connective structure unless the user explicitly makes it the main subject. Protect face readability.
+- Use `动作主导` only when the user explicitly asks for action-first scenes.
+- Do not create topic-specific motif categories. Keep routing abstract so it can generalize across genres and reference sets.
+
+## 4. Generate Three Directions
 
 Always make directions different. Recommended set:
 
-1. **Power portrait**: one protagonist dominates the frame; best for revenge, identity reversal, CEO/power stories.
-2. **Relationship confrontation**: two people in opposing positions; best for romance, betrayal, pursuit, coercion.
-3. **Group/pyramid composition**: hierarchy and hidden relationships; best for family, palace, team, fantasy, multi-character drama.
+1. One direction should follow the primary dominance route.
+2. One direction should combine the primary and secondary drivers differently.
+3. One direction may test a safer commercial alternative, but it must not violate the forbidden misread.
 
 Also vary style mode when useful:
 
@@ -105,30 +136,32 @@ Also vary style mode when useful:
 
 Each direction must include:
 
+- Dominance logic.
 - Style mode.
 - Composition type.
 - Character scale and shot size.
 - Relationship staging.
 - Scene and props.
 - Lighting and atmosphere.
-- Title-safe area position.
+- Title-safe area position, defaulting to lower-center unless a special composition requires another placement.
 - If relevant, title rendering suitability.
+- Forbidden misread for that direction.
 - Why this direction sells the drama.
 
-Even if the user finally wants only one prompt, generate three directions first internally. Show all three unless the user explicitly asks for concise output.
+Even if the user finally wants only one prompt, generate three directions first internally. Show all three unless the user explicitly asks for concise output. The three directions should not be the same composition with different adjectives.
 
-## 4. Build Poster Base Prompt
+## 5. Build Poster Base Prompt
 
 The prompt must describe visible image content, not abstract adjectives. Include:
 
 - Format: Chinese short-drama commercial poster base, plus the chosen style mode.
 - Aspect ratio: default 2:3 vertical poster ratio unless user-specified.
-- Characters: role count, hierarchy, posture, expression, wardrobe, face readability.
+- Characters: role count, hierarchy, posture, expression, reference-lock rule, face readability.
 - Composition: shot size, camera angle, foreground/midground/background.
 - Scene: location, time, props, spatial pressure.
 - Lighting: key light, rim light, color temperature, contrast, reflections.
 - Commercial polish: high-end film poster, clean layers, strong visual focus.
-- Title-safe area: clean upper/side/bottom area depending on direction.
+- Title-safe area: clean lower-center area by default; use upper, side, or other areas only when the composition, platform format, title-rendered design, or supplied style reference clearly requires it.
 - No text: no Chinese/English characters, logos, subtitles, watermarks.
 
 When character turnarounds exist, change the writing strategy:
@@ -136,15 +169,18 @@ When character turnarounds exist, change the writing strategy:
 - write the prompt as a **turnaround-driven poster staging instruction**
 - do not redesign the approved character with extra beauty or anatomy invention
 - avoid adding feature descriptors that are not required for design preservation
-- do not "optimize" the character into different facial proportions, body proportions, species traits, materials, color blocking, age feel, or hairstyle
+- do not "optimize" the character into different facial proportions, body proportions, species traits, materials, color blocking, clothing design, age feel, or hairstyle
 - only describe appearance when it is already visible in the turnaround and necessary for role binding
-- prefer `表情 / 视线 / 姿态 / 服装 / 景别 / 光影 / 站位 / 关系张力`
+- prefer `表情 / 视线 / 姿态 / 景别 / 光影 / 站位 / 关系张力`
+- for platform-ready prompts, do not write concrete clothing style, color, material, era, jewelry, headwear, armor, robe, uniform, or silhouette by default; use `服装造型按角色参考图，不重新设计服装`
+- if the user explicitly wants clothing identifiers in the text, keep them short and preservation-focused, and add `不重新设计 / 不额外改造 / 不升级服装`
 - avoid replacing the approved design with generic beauty or realism tags unless the user explicitly requested such a transformation
 
 Useful turnaround-safe phrasing:
 
 - 按角色三视图设定生成
 - 保持角色三视图中的轮廓、比例、材质、配色、发型和整体气质不变
+- 服装造型按角色参考图，不重新设计服装
 - 强调海报构图、关系、动作和光影，不额外改写角色设定
 - 以角色三视图一致性为最高优先级
 
@@ -217,7 +253,7 @@ When character turnarounds exist:
 - Ask for 1 strongest approved turnaround set per key role if too many versions are supplied.
 - Require consistent silhouette, proportions, materials, color blocking, hairstyle, and general temperament.
 - Do not add decorative anatomy or beauty wording that can pull the model away from the turnaround.
-- Prefer staging descriptors over appearance-rewrite descriptors: expression, gaze direction, chin lift, shoulder angle, hand action, wardrobe silhouette, camera distance, and light hierarchy.
+- Prefer staging descriptors over appearance-rewrite descriptors: expression, gaze direction, chin lift, shoulder angle, hand action, body orientation, camera distance, and light hierarchy.
 - If a role turnaround is weak or ambiguous, say that explicitly and keep the appearance description even shorter rather than compensating with invented traits.
 - For anime/cartoon/3D anime, keep identity consistency through silhouette, face structure, eye spacing, palette, material language, and temperament rather than forcing realism.
 - If the poster has many characters, prioritize must-appear roles and allow secondary figures to be less detailed.
@@ -291,7 +327,7 @@ Use for "改这张图", "基于这张海报重做", "保留人物换氛围", or 
 Structure:
 
 - Preserve: identity, number of people, main relationship, rough composition, title-safe area.
-- Change: atmosphere, location, lighting, wardrobe, shot distance, emotion, visual cleanliness.
+- Change: atmosphere, location, lighting, staging, shot distance, emotion, visual cleanliness.
 - If style conversion is requested, name both the source style and target style clearly.
 - Generate 3 variants when useful: stable version, stronger emotion version, more cinematic space version.
 - Do not promise local edits unless the user asks for mask/region editing and the tool supports it.

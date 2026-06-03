@@ -4,14 +4,16 @@
 
 ```markdown
 ### 方向 1：<方向名>
+- 主导关系：<人物主导 / 关系主导 / 道具主导 / 空间主导 / 符号主导 / 动作主导> + <辅助主导>
 - 核心钩子：<一句话>
 - 风格模式：<写实电影感 / 半写实插画 / 动漫卡通 / 类3D动漫>
 - 构图：<单人权力肖像 / 双人对峙 / 群像金字塔 / 豪门空间压迫等>
 - 人物：<角色数量、主次关系、姿态、表情>
 - 场景：<空间、时间、关键道具>
 - 光影：<冷暖、主光、轮廓光、背景层次>
-- 标题安全区：<上方 / 左上 / 右下 / 中下等>
+- 标题安全区：<默认下中；特殊构图才用上方 / 侧边 / 其他位置>
 - 带字适配：<适合直接带字 / 更适合无字底图后二次排版>
+- 禁用误读：<本方向最容易跑偏的点>
 - 适合原因：<为什么这个方向更能卖剧>
 ```
 
@@ -53,6 +55,27 @@ If action/relationship references exist, also add:
 - 排除继承：<角色身份 / 类型或物种 / 配色 / 材质 / 道具 / 文字 / 原图剧情>
 ```
 
+Before directions, add:
+
+```markdown
+画面主导关系判断：
+- 第一主导：<人物主导 / 关系主导 / 道具主导 / 空间主导 / 符号主导 / 动作主导>
+- 第二主导：<人物主导 / 关系主导 / 道具主导 / 空间主导 / 符号主导 / 动作主导>
+- 禁用误读：<不要把互动写成动作戏 / 不要让道具变产品图 / 不要让符号抢主角等>
+```
+
+Visual dominance routing rules:
+
+- Use only these abstract drivers: `人物主导`, `关系主导`, `道具主导`, `空间主导`, `符号主导`, `动作主导`.
+- Do not create topic-specific motif categories.
+- `人物主导`: first decide who is largest, clearest, brightest, foregrounded, and face-readable.
+- `关系主导`: express interaction through placement, facing direction, gaze, distance, overlap, foreground/background hierarchy, and shared narrative focus.
+- `道具主导`: decide whether the prop is first narrative focus or supporting clue; define structure, state, placement, scale, and lighting without turning it into a product shot.
+- `空间主导`: make space work as pressure, identity, action field, scale reference, or light source; do not let it become empty scenery.
+- `符号主导`: use the symbol as pressure or connective structure by default; protect face readability and first visual focus.
+- `动作主导`: use only when the user asks for action-first scenes such as combat, chase, falling, impact, collision, or protection.
+- Generate three directions from different dominance combinations instead of changing words around the same composition.
+
 If the user has corrected an earlier rule in the same thread, add:
 
 ```markdown
@@ -78,7 +101,7 @@ Only include it when the user asks for full explanation, plan review, direction 
 Use one paragraph. Example structure:
 
 ```text
-中文短剧 2:3 竖版商业海报底图，<风格模式>，人物关系一眼可读。画面为<构图类型>，<主角>占据画面<比例>，<对手/恋人/配角>位于<位置>形成<关系张力>。场景设置在<地点/时间>，可见<关键道具/空间元素>，背景只保留服务剧情的元素。镜头为<景别和角度>，人物脸部清晰，表情体现<情绪>。光影采用<光线方案>，整体氛围<情绪词>。如果是写实或半写实，材质细节包括<服装/皮肤/玻璃/雨水/金属/布料>；如果是动漫卡通或类3D动漫，则强调<线条 / 赛璐璐明暗 / 发丝块面 / 眼神设计 / 三维材质高光 / 角色轮廓层次>。保留<标题安全区位置>干净留白，方便后期添加剧名。不要生成任何可见文字、汉字、英文、logo、水印、字幕、平台标识；不要廉价拼贴、不要网红滤镜、不要低清模糊、不要畸形手指、不要重复人物。
+中文短剧 2:3 竖版商业海报底图，<风格模式>，人物关系一眼可读。画面为<构图类型>，<主角>占据画面<比例>，<对手/恋人/配角>位于<位置>形成<关系张力>。场景设置在<地点/时间>，可见<关键道具/空间元素>，背景只保留服务剧情的元素。镜头为<景别和角度>，人物脸部清晰，表情体现<情绪>。光影采用<光线方案>，整体氛围<情绪词>。如果是写实或半写实，材质细节包括<服装/皮肤/玻璃/雨水/金属/布料>；如果是动漫卡通或类3D动漫，则强调<线条 / 赛璐璐明暗 / 发丝块面 / 眼神设计 / 三维材质高光 / 角色轮廓层次>。默认保留下中窄幅标题安全区，方便后期添加剧名。不要生成任何可见文字、汉字、英文、logo、水印、字幕、平台标识；不要廉价拼贴、不要网红滤镜、不要低清模糊、不要畸形手指、不要重复人物。
 ```
 
 Length rule:
@@ -97,7 +120,7 @@ Aspect-ratio rule:
 If character turnarounds exist, prepend a short design-lock sentence and simplify appearance language:
 
 ```text
-按角色三视图设定生成，保持角色三视图中的轮廓、比例、材质、配色、发型和整体气质不变，不额外改写角色设定。重点强化<构图 / 关系 / 表情 / 姿态 / 服装 / 光影>。
+按角色三视图设定生成，保持角色三视图中的角色身份和整体造型不变，服装造型按角色参考图，不重新设计服装。重点强化<构图 / 关系 / 表情 / 姿态 / 景别 / 光影>。
 ```
 
 Turnaround writing rules:
@@ -106,7 +129,11 @@ Turnaround writing rules:
 - If several named role turnarounds are supplied and the user does not mark any as optional, include every named role in the main composition or ask before omitting one.
 - Do not add beautification tags unless explicitly requested.
 - Do not add invented anatomy, species correction, material replacement, age reduction, or face-shape rewrite keywords.
-- Use expression, posture, wardrobe, props, and lighting to create drama instead of rewriting the design.
+- Use expression, gaze, posture, placement, props, shot size, and lighting to create drama instead of rewriting the design.
+- In platform-ready prompts, do not mention concrete clothing names, colors, materials, dynastic/era labels, headwear, jewelry, armor, robe, uniform, or silhouette by default when character references exist.
+- Default clothing sentence: `服装造型按角色参考图，不重新设计服装`.
+- If the user explicitly asks to preserve visible clothing identifiers in text, mention only brief preservation anchors and add `不重新设计 / 不额外改造 / 不升级服装`.
+- Avoid phrases that convert clothing into a design brief, such as `华贵`, `更霸气`, `升级`, `重甲`, `朝服`, `宫廷长裙`, `凤冠霞帔`, `披风`, or `金属肩甲`, unless those exact terms are user-required labels rather than model-facing design instructions.
 - Do not turn design constraints into assistant commentary. Write the constraint directly into the scene description.
 - If two roles have an identity link such as true form, avatar, incarnation, companion form, summoned form, mirror form, or spirit counterpart, preserve both role designs independently unless the user asks for a hybrid or transformed appearance.
 - Express identity links through staging and composition instead of appearance mutation.
@@ -159,10 +186,11 @@ Precision-control revision rules:
 - For realistic scenes, specify one unified light system: key light direction, practical light sources, rim or back light, ground reflection, fog/air layer, contact shadows, color temperature, and edge integration.
 - For large background symbols, screens, projections, celestial bodies, signs, or architecture, state depth/volume, camera angle, vanishing-line alignment, overlap with characters, focus priority, and whether it is atmospheric support or the main subject.
 - Title-safe areas should be narrow and usable, not a large empty black block. If the user says the bottom is dead or wasted, reduce the reserved area and fill it with controlled foreground atmosphere.
+- Default title-safe placement is lower-center. Use upper, side, or other positions only when the composition, platform format, title-rendered design, or supplied style reference clearly requires it.
 - When atmosphere is weak, add environmental layers such as fog, steam, rain mist, wet reflections, dust, smoke haze, foreground bokeh, edge light, or ground texture before adding new subject objects.
 - For large props, vehicles, architecture, machines, or set pieces that are not the main subject, assign a spatial or narrative function: light source, scale reference, background anchor, blocking device, or story clue.
 - For rear or side characters, give a ground/contact anchor and relation to a set piece, wall, vehicle, stair, doorway, or shadow plane so they do not become floating cutouts.
-- Character actions must fit wardrobe structure and role temperament. Avoid gestures that imply unwanted meanings; if an action reads wrong, replace it with posture, gaze, stance, walking direction, grip, or blocking.
+- Character actions must fit the visible reference design, body mechanics, and role temperament. Avoid gestures that imply unwanted meanings; if an action reads wrong, replace it with posture, gaze, stance, walking direction, grip, or blocking.
 - If interaction feels weak, revise gaze, body orientation, distance, overlap, shared threat direction, and event chain, not only facial expression.
 
 ## Platform-Ready Prompt
@@ -223,7 +251,7 @@ Precision-control language examples:
 
 大型道具位于人物背后作为空间锚点和实际光源，局部可见，不做完整广告式展示，其灯光从后方勾出人物轮廓并落在潮湿地面。
 
-标题安全区只保留窄幅干净区域，下半部仍有前景雾气、湿地反光、暗部细节和失焦灯斑，不形成整片死黑。
+下中位置保留窄幅干净标题安全区，下半部仍有前景雾气、湿地反光、暗部细节和失焦灯斑，不形成整片死黑。
 ```
 
 Bad example:
@@ -339,7 +367,7 @@ Keep JSON keys stable; values should be Chinese.
 Recommended value for `外貌描述策略` when character turnarounds exist:
 
 ```text
-以角色三视图一致性为最高优先级，只描述表情、姿态、服装、景别和光影，不补充会改变设定的外貌或材质细节。
+以角色三视图一致性为最高优先级，只描述表情、姿态、站位、景别和光影。平台词默认不写具体服装款式、颜色、材质和饰品；只写“服装造型按角色参考图，不重新设计服装”。
 ```
 
 Recommended values when style/composition references exist:
