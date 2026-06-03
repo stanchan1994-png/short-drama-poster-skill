@@ -7,8 +7,8 @@ Chinese short-drama poster workflow for AI agents.
 This skill is designed for:
 
 - short-drama poster direction planning
-- Chinese complete prompt generation
-- Workflow JSON for revision and agent handoff
+- platform-ready Chinese prompt generation
+- optional Chinese complete prompt and Workflow JSON for explanation, revision, and agent handoff
 - whole-image redraw instructions
 - realistic, semi-realistic illustration, anime/cartoon, and stylized 3D anime poster styles
 - title-rendered final poster versions with Chinese typography guidance
@@ -33,7 +33,7 @@ This skill turns a script, synopsis, character references, or an existing poster
 - Choose between realistic, semi-realistic, anime/cartoon, and 3D anime modes
 - Support title-free poster bases and title-rendered final poster versions
 - Support 1-person, 2-person, 3-person, 4-6 person, and large-cast poster logic
-- Produce Chinese complete prompts, platform-ready prompts, and workflow JSON
+- Produce clean platform-ready prompts by default, with optional Chinese complete prompts and workflow JSON when requested
 - Handle whole-image redraw requests while preserving identity and composition constraints
 - Run a final quality pass using commercial poster checks
 
@@ -76,7 +76,7 @@ Use the skill when asking for:
 - short-drama poster directions
 - poster prompt optimization
 - multi-character poster staging
-- workflow JSON for prompt revision and agent handoff
+- optional workflow JSON for prompt revision and agent handoff
 - anime or 3D anime short-drama poster treatment
 - title-rendered poster generation
 - whole-image redraw instructions for an existing poster
@@ -84,7 +84,7 @@ Use the skill when asking for:
 Typical request:
 
 ```text
-Use short-drama-poster to turn this script into 3 poster directions, then give me one Chinese complete prompt, one platform-ready prompt, and one collapsed Workflow JSON.
+Use short-drama-poster to turn this script into 3 poster directions, then give me the recommended direction and one platform-ready prompt.
 ```
 
 For stylized output:
@@ -99,11 +99,13 @@ Standard output should include:
 
 1. 3 poster directions
 2. recommended direction
-3. Chinese complete prompt
-4. platform-ready prompt
-5. workflow JSON (collapsed by default, not for direct image-platform input)
-6. negative constraints
-7. quality checklist
+3. platform-ready prompt
+4. negative constraints
+5. quality checklist
+
+Workflow JSON is not shown in normal user-facing output. Only include it when the user explicitly asks for workflow, JSON, structured handoff, agent handoff, or recap/debug metadata.
+
+Chinese complete prompts are not shown by default. Only include them when the user asks for full explanation, plan review, direction rationale, or handoff to another AI.
 
 If the user explicitly wants a title-rendered poster, the output should also include title-layer guidance or a direct title-rendered extension.
 
@@ -127,7 +129,7 @@ The style branch matters because the skill should not force realistic skin or fi
 - Title-rendered posters are supported when explicitly requested, and the default rendered-text version should contain only the main drama title unless extra copy is explicitly requested
 - Character-turnaround consistency takes priority over visual experimentation when role turnarounds exist
 - In multi-character posters, not every face should receive equal attention
-- For beginner-facing output, show the platform-ready prompt first and treat workflow JSON as collapsed optional support information
+- For beginner-facing output, show the platform-ready prompt first and do not show workflow JSON unless explicitly requested
 - Platform-ready prompts must stay as pure image instructions and should not contain dialogue residue such as "you provided", "if you want", or "I can give another version"
 - In recap mode, output only light recap, stage recap, or the structured Case Summary record and do not continue poster generation
 - Case-summary conclusions must separate universal rules, conditional branch rules, and case-only notes. Do not turn one case's concrete setting directly into a global rule.

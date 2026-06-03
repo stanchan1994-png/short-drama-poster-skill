@@ -24,17 +24,19 @@ The default mode is commercial short-drama realism, but this skill also supports
 3. Decide the visual mode first: realistic, semi-realistic illustration, anime/cartoon, or 3D anime.
 4. Produce **3 distinct poster directions** before writing final prompts. Make the directions meaningfully different in composition, emotional temperature, commercial hook, and if useful, style execution.
 5. Decide whether the output is a title-free base or a title-rendered final poster.
-6. After a direction is chosen, produce a **Chinese complete prompt**, a **platform-ready prompt**, and a collapsed **Workflow JSON** for revision control.
+6. After a direction is chosen, produce a **platform-ready prompt** as the single default prompt output. Do not show a Chinese complete prompt unless the user asks for full explanation, plan review, or handoff to another AI. Do not show Workflow JSON unless the user explicitly asks for workflow, JSON, structured handoff, agent handoff, or recap/debug metadata.
 7. Before the final prompt, state a short **task judgment**: normal poster base, title-rendered poster, or whole-image redraw. If you made assumptions, label them explicitly instead of hiding them.
 8. If references are provided, classify them first: **character turnaround reference**, **style/composition reference**, or **action/relationship reference**.
 9. If character turnarounds are provided, output a short **reference-role binding** block before writing prompts so each image is tied to a named role.
-10. Keep the image title-free by default: no rendered title text, no logo, no watermark, and a clean title-safe area.
-11. If the user explicitly wants a poster with title text, generate both the poster-base prompt and a title-layer or title-rendered version with typography guidance. The default title-rendered version should contain only the main drama title unless the user explicitly asks for subtitle, slogan, platform line, or extra copy.
-12. If title rendering is requested, auto-match a title glyph family from `references/font-library.md` based on genre, relationship tone, and style mode before assigning material treatment.
-13. Material treatment for title-rendered posters must be derived from the poster look itself: same glyph family can render as silver metal, warm gold foil, dry-brush white, enamel, glow, or premium 3D highlight depending on story type.
-14. If the user provides an existing poster, treat the task as whole-image redraw unless they explicitly ask for local masking. Preserve the requested identity/composition/style constraints and generate new redraw instructions.
-15. Keep every prompt-like output block within **1900 Chinese characters** by default, because many image platforms have prompt-length limits.
-16. Finish with a short quality checklist and concrete fixes.
+10. For normal poster-base generation, default to a **2:3 vertical poster ratio** unless the user specifies another ratio or platform format. Do not include pixel dimensions by default.
+11. Keep the image title-free by default: no rendered title text, no logo, no watermark, and a clean title-safe area.
+12. If the user explicitly wants a poster with title text, generate both the poster-base prompt and a title-layer or title-rendered version with typography guidance. The default title-rendered version should contain only the main drama title unless the user explicitly asks for subtitle, slogan, platform line, or extra copy.
+13. If title rendering is requested, auto-match a title glyph family from `references/font-library.md` based on genre, relationship tone, and style mode before assigning material treatment.
+14. Material treatment for title-rendered posters must be derived from the poster look itself: same glyph family can render as silver metal, warm gold foil, dry-brush white, enamel, glow, or premium 3D highlight depending on story type.
+15. If the user provides an existing poster, treat the task as whole-image redraw unless they explicitly ask for local masking. Preserve the requested identity/composition/style constraints and generate new redraw instructions.
+16. Once the user has chosen a direction and is refining generated results, switch into **precision-control revision**: keep one方案 and tighten camera, scale, placement, lighting, perspective, and deleted elements instead of offering new directions or casual shorter variants.
+17. Keep every prompt-like output block within **1900 Chinese characters** by default, because many image platforms have prompt-length limits.
+18. Finish with a short quality checklist and concrete fixes.
 
 ## What To Read
 
@@ -102,10 +104,8 @@ For a normal "make a poster prompt" request, output:
 3. **Reference-role binding**: only when character turnarounds are provided.
 4. **3 poster directions**: title, hook, style mode, composition, characters, scene, lighting, title-safe area.
 5. **Recommended direction**: one concise reason.
-6. **Chinese complete prompt** for the recommended direction.
-7. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, with no workflow metadata, capped at **1900 Chinese characters**.
-8. **Workflow JSON (collapsed by default)**: structured metadata for humans/agents; keep it compact, avoid unnecessary prose, and treat it as optional supporting info for advanced users.
-9. **Negative constraints** and quality checklist.
+6. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, with no workflow metadata, capped at **1900 Chinese characters**.
+7. **Negative constraints** and quality checklist.
 
 For a "带标题成品图" or "直接做带字海报" request, output:
 
@@ -114,12 +114,10 @@ For a "带标题成品图" or "直接做带字海报" request, output:
 3. **Reference-role binding**: only when references exist.
 4. **3 poster directions** with title-safe-area reasoning.
 5. **Recommended direction**.
-6. **Poster-base Chinese prompt**.
-7. **Title-rendered version** or title-layer instructions.
-8. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, capped at **1900 Chinese characters**.
-9. **Workflow JSON (collapsed by default)**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
-10. **Typography notes**: glyph family, material treatment, title style, placement, subtitle, billing, and avoidance rules.
-11. **Quality checklist**.
+6. **Title-rendered version** or title-layer instructions.
+7. **Platform-ready prompt**: a clean feed-ready prompt made only of image-generation instructions, capped at **1900 Chinese characters**.
+8. **Typography notes**: glyph family, material treatment, title style, placement, subtitle, billing, and avoidance rules.
+9. **Quality checklist**.
 
 For an "edit/redraw this poster" request, output:
 
@@ -127,14 +125,15 @@ For an "edit/redraw this poster" request, output:
 2. **What to preserve**.
 3. **What to change**.
 4. **Reference-role binding**: only when the user also supplies character turnarounds.
-5. **Complete whole-image redraw prompt**.
-6. **Platform-ready redraw prompt**: a clean feed-ready redraw prompt with no workflow metadata, capped at **1900 Chinese characters**.
-7. **Workflow JSON (collapsed by default)**: structured metadata for humans/agents; mark it clearly as not for direct image-platform input.
-8. **Failure risks and quality checks**.
+5. **Platform-ready redraw prompt**: a clean feed-ready redraw prompt with no workflow metadata, capped at **1900 Chinese characters**.
+6. **Failure risks and quality checks**.
 
 ## Hard Rules
 
 - Put characters first. Short-drama posters must make faces, posture, and relationship readable at thumbnail size.
+- Default poster-base output is **2:3 vertical poster ratio**. If the user specifies 7:10, 3:4, 4:3, 9:16, 16:9, banner, platform-specific cover, or another ratio, use the requested ratio instead.
+- Platform-ready prompts must explicitly state the chosen ratio, but should not specify pixel dimensions unless the user asks for exact size.
+- Avoid ultra-narrow vertical frames, phone long-screenshot proportions, and any ratio taller than 1:2 unless the user explicitly requests that format.
 - Avoid empty scenic posters unless the story is landscape-driven. In most cases, people should occupy 60%-85% of the poster height depending on cast size.
 - For multi-character posters, do not distribute attention evenly. The main role must stay largest, clearest, and visually brightest.
 - If multiple characters are selling points, write their relative visual weight directly: shared shot size, face clarity, foreground/midground position, brightness, and focus. Do not imply an important selling character only through vague "behind" or "second focus" wording if their face and appeal must read clearly.
@@ -145,6 +144,8 @@ For an "edit/redraw this poster" request, output:
 - Avoid cheap cover aesthetics: collage clutter, random neon gradients, over-smoothed AI skin, tiny faces, bad hands, unreadable relationships, platform UI marks, fake logos, and watermark-like artifacts.
 - If character turnarounds are provided, prioritize turnaround consistency over style creativity.
 - If character turnarounds are provided, treat this skill as **turnaround-driven generation first**, not free character invention.
+- If the user says character references will be provided, prepare for turnaround-driven generation immediately: do not pre-commit invented age, face, hairstyle, body, species/type, material, color, or clothing details that may conflict with the later references.
+- If the user provides multiple named character turnarounds and does not mark any role as optional, assume all named roles must appear in the main poster or explicitly ask before omitting one.
 - With character turnarounds, do not invent or over-specify facial features, body proportions, species traits, materials, colors, silhouette markers, or hairstyle changes unless the user explicitly asks for those changes.
 - With character turnarounds, keep appearance language minimal and identity-safe: describe only role hierarchy, expression, gaze, posture, wardrobe, shot size, and lighting that help the poster read better without changing the approved design.
 - If the story contains identity links such as true form, avatar, incarnation, companion form, summoned form, mirror form, or spirit counterpart, do not translate that relationship into appearance mutation unless the user explicitly asks. Preserve each referenced design as shown and express the link through staging, gaze, proximity, light, shadow, or composition.
@@ -153,19 +154,29 @@ For an "edit/redraw this poster" request, output:
 - If an action/relationship reference is provided, inherit only pose, motion path, force direction, contact/impact relationship, camera angle, and foreground/background hierarchy; do not inherit character identity, species/type, temperament, era feel, profession feel, style finish, colors, materials, text, props, or story content from that reference.
 - For high-motion action, specify camera angle, center of gravity, limb/edge positions, motion direction, expression state, and whether motion blur is allowed or limited.
 - In multi-turn revision, the latest explicit user correction overrides older prompt rules. The next platform-ready prompt must remove old names, old states, old poses, and old material assumptions that conflict with the latest correction.
+- If the user deletes an element, remove it completely from the next prompt, including synonyms, background traces, optional variants, and Workflow JSON remnants.
+- In precision-control revision, do not keep recommending a `shorter`, `compressed`, or `投喂版` variant unless the user asks for compression. Prioritize exact control of composition, placement, scale, lens, lighting, perspective, and negative constraints.
 - For non-human, creature, mechanical, object, or heavily designed characters, preserve the approved design's recognizable silhouette, structural proportions, material language, color blocking, and category-defining markers; do not drift into adjacent archetypes unless the user explicitly asks.
 - For non-human, creature, mechanical, object, or heavily designed characters, lock high-drift local identifiers when visible: face markings, color-block boundaries, eye area, nose/mouth or front structure, ear/horn/tail/limb tips, special marks, and other approved local features.
 - For material-state transformations such as solid, hologram, energy form, spirit form, shadow form, silhouette, projection, or translucent body, state both what is preserved and what changes: color retention or removal, opacity, edge behavior, internal structure, dissipation, and whether the body is physically solid.
 - Setting elements such as UI panels, projections, magic circles, props, background threats, and symbolic objects must not steal the user-specified first visual focus unless the user explicitly makes them the main subject.
 - Platform-ready prompts must be pure image instructions, not dialogue, explanation, or assistant commentary.
-- Show the `Platform-ready prompt` first. Treat `Workflow JSON` as secondary supporting information for revision control, not the main user-facing result.
-- Assume many users are beginners. By default, keep `Workflow JSON` folded/collapsed or clearly separated as optional advanced information.
+- Use `Platform-ready prompt` as the only default prompt block in normal user-facing output.
+- `Chinese complete prompt` is optional explanatory output. Only include it when the user asks for full explanation, plan review, direction rationale, or handoff to another AI.
+- Show the `Platform-ready prompt` first. Do not show `Workflow JSON` in normal user-facing output.
+- `Workflow JSON` is optional advanced metadata. Only output it when the user explicitly asks for workflow, JSON, structured handoff, agent handoff, recap/debug metadata, or when building a case summary.
 - In platform-ready prompts, forbid phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `这一版`, `再给你一版`, `视觉上让人一眼明白`, `这是XX设定`, `改为`, `改成`, `保持为`, `参考示例图`, `按示例图`.
 - In platform-ready prompts, never include image filenames, attachment names, local paths, numbered file references, or raw reference labels. Convert them into visible scene descriptions or keep them only in workflow/reference-binding notes.
 - In platform-ready prompts, replace supervisory or explanatory wording with direct visible constraints.
 - In revision mode, write the final image as an already-decided result state. Do not write edit instructions such as `把A改为B`, `保持为`, `改成`, or `参考示例图中的关系`.
 - Translate user wording into visual language before writing the platform-ready prompt. Do not paste casual user phrasing, relationship labels, or abstract intent directly when it can be rendered as pose, gaze, distance, contact, blocking, lighting, or hierarchy.
 - For multi-character or layered compositions, specify shared light source, shared color temperature, atmospheric perspective, contact/occlusion, scale relationship, and edge integration so characters do not look pasted together.
+- For complex realistic posters, state the physical light system directly: key light direction, secondary/rim light, practical light sources, ground reflections, fog/air layer, contact shadows, and whether background objects contribute light.
+- For large background symbols, screens, projections, celestial bodies, signs, or architectural shapes, state their depth, thickness/volume, camera angle, vanishing-line alignment, overlap with characters, and whether they are secondary atmosphere or the main focus.
+- Title-safe areas must remain narrow and purposeful. Do not create a large dead black region or waste the lower half of the poster just to reserve text space.
+- For vehicles, buildings, machines, props, or other large scene objects that are not the main selling point, make them serve as narrative anchors, light sources, scale references, or spatial anchors instead of isolated showroom objects.
+- Background or rear-position characters must have a believable ground/contact anchor, occlusion relationship, and light connection; do not place them as floating cutouts or poster-board figures.
+- Character actions must fit the visible wardrobe, body mechanics, and role temperament. Avoid gestures that imply unintended meanings such as eavesdropping, awkward posing, or grooming if they do not serve the story.
 - If the task is outpainting, aspect-ratio conversion, or canvas expansion, preserve the subject, pose, expression, design, lighting, and composition center; extend only the edge environment unless the user explicitly asks to redraw the subject.
 - Platform-ready prompts must stay within **1900 Chinese characters** unless the user explicitly asks for a longer version.
 - If the prompt is too long, compress in this order: remove repeated style adjectives, merge similar negative constraints, shorten explanatory transitions, keep visual weight, shot size, face clarity, reference locks, composition, lighting, and title-safe-area first.

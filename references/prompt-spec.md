@@ -23,6 +23,7 @@ Use this block before directions when it improves execution stability.
 任务判断：
 - 输出类型：<无字底图 / 带字成图 / 整图重绘>
 - 风格模式：<写实电影感 / 半写实插画 / 动漫卡通 / 类3D动漫>
+- 画幅比例：<默认 2:3 竖版；或用户指定比例>
 
 假设：
 - <只写必要假设；若无可省略>
@@ -58,20 +59,40 @@ If the user has corrected an earlier rule in the same thread, add:
 最新覆盖：
 - <旧设定> -> <新设定>
 - 后续平台词只保留新设定
+- 已删除元素：<元素A / 元素B>，后续平台词和 Workflow JSON 均不再保留
+```
+
+If the user is iterating on generated results after choosing one direction, add:
+
+```markdown
+精控阶段：
+- 当前只精修已选方向，不再扩展新方向
+- 优先控制<镜头 / 占比 / 站位 / 光照 / 透视 / 空间锚点 / 已删除元素>
+- 不主动输出更短版，除非用户要求压缩
 ```
 
 ## Chinese Complete Prompt
 
+This block is optional explanatory output, not a default user-facing prompt block.
+Only include it when the user asks for full explanation, plan review, direction rationale, or handoff to another AI.
 Use one paragraph. Example structure:
 
 ```text
-中文短剧竖版商业海报底图，<风格模式>，人物关系一眼可读。画面为<构图类型>，<主角>占据画面<比例>，<对手/恋人/配角>位于<位置>形成<关系张力>。场景设置在<地点/时间>，可见<关键道具/空间元素>，背景只保留服务剧情的元素。镜头为<景别和角度>，人物脸部清晰，表情体现<情绪>。光影采用<光线方案>，整体氛围<情绪词>。如果是写实或半写实，材质细节包括<服装/皮肤/玻璃/雨水/金属/布料>；如果是动漫卡通或类3D动漫，则强调<线条 / 赛璐璐明暗 / 发丝块面 / 眼神设计 / 三维材质高光 / 角色轮廓层次>。保留<标题安全区位置>干净留白，方便后期添加剧名。不要生成任何可见文字、汉字、英文、logo、水印、字幕、平台标识；不要廉价拼贴、不要网红滤镜、不要低清模糊、不要畸形手指、不要重复人物。
+中文短剧 2:3 竖版商业海报底图，<风格模式>，人物关系一眼可读。画面为<构图类型>，<主角>占据画面<比例>，<对手/恋人/配角>位于<位置>形成<关系张力>。场景设置在<地点/时间>，可见<关键道具/空间元素>，背景只保留服务剧情的元素。镜头为<景别和角度>，人物脸部清晰，表情体现<情绪>。光影采用<光线方案>，整体氛围<情绪词>。如果是写实或半写实，材质细节包括<服装/皮肤/玻璃/雨水/金属/布料>；如果是动漫卡通或类3D动漫，则强调<线条 / 赛璐璐明暗 / 发丝块面 / 眼神设计 / 三维材质高光 / 角色轮廓层次>。保留<标题安全区位置>干净留白，方便后期添加剧名。不要生成任何可见文字、汉字、英文、logo、水印、字幕、平台标识；不要廉价拼贴、不要网红滤镜、不要低清模糊、不要畸形手指、不要重复人物。
 ```
 
 Length rule:
 
 - `Chinese Complete Prompt` should normally stay within **1900 Chinese characters**.
 - If both `Chinese Complete Prompt` and `Platform-Ready Prompt` are present, the `Platform-Ready Prompt` has higher priority for strict length control.
+
+Aspect-ratio rule:
+
+- Default normal poster-base generation is `2:3 竖版`.
+- State `2:3 竖版海报比例` in the platform-ready prompt unless the user requests another ratio.
+- Do not include pixel dimensions by default.
+- If the user requests 7:10, 3:4, 4:3, 9:16, 16:9, banner, platform-specific cover, or another ratio, replace the default with the requested ratio.
+- Add a negative constraint against ultra-narrow vertical frames or phone long-screenshot proportions when the task is a normal poster base.
 
 If character turnarounds exist, prepend a short design-lock sentence and simplify appearance language:
 
@@ -81,6 +102,8 @@ If character turnarounds exist, prepend a short design-lock sentence and simplif
 
 Turnaround writing rules:
 
+- If the user says character references will be provided but has not uploaded them yet, avoid locking invented age, face, hairstyle, clothing, body, species/type, material, or color details that may conflict with the later references.
+- If several named role turnarounds are supplied and the user does not mark any as optional, include every named role in the main composition or ask before omitting one.
 - Do not add beautification tags unless explicitly requested.
 - Do not add invented anatomy, species correction, material replacement, age reduction, or face-shape rewrite keywords.
 - Use expression, posture, wardrobe, props, and lighting to create drama instead of rewriting the design.
@@ -119,12 +142,28 @@ Multi-turn override writing rules:
 - The latest explicit user correction overrides older prompt rules.
 - Remove old names, object types, poses, colors, material states, title rules, and focus hierarchy that conflict with the latest correction.
 - Do not keep both old and new versions in the same platform-ready prompt.
+- When the user deletes an element, remove it from the complete prompt, platform-ready prompt, negative constraints, and Workflow JSON. Do not keep it as optional background, hidden clue, or fallback.
+- If the user later asks to restore the deleted element, treat that as a new latest correction.
 
 Material-state writing rules:
 
 - For hologram/projection/energy/spirit/shadow/silhouette states, say what is preserved and what changes.
 - Specify color retention or removal, opacity, edge behavior, internal structure, dissipation, and whether the body is physically solid.
 - If the user asks to preserve original color while changing material state, state both constraints in one sentence.
+
+Precision-control revision rules:
+
+- Use this mode after the user chooses a direction and starts correcting generated images.
+- Do not answer with new broad directions or a shorter platform variant unless requested.
+- Convert corrections into hard visual controls: shot size, character scale, camera height, camera tilt, lens distance, foreground/midground/background placement, occlusion, contact shadows, and exact focus order.
+- For realistic scenes, specify one unified light system: key light direction, practical light sources, rim or back light, ground reflection, fog/air layer, contact shadows, color temperature, and edge integration.
+- For large background symbols, screens, projections, celestial bodies, signs, or architecture, state depth/volume, camera angle, vanishing-line alignment, overlap with characters, focus priority, and whether it is atmospheric support or the main subject.
+- Title-safe areas should be narrow and usable, not a large empty black block. If the user says the bottom is dead or wasted, reduce the reserved area and fill it with controlled foreground atmosphere.
+- When atmosphere is weak, add environmental layers such as fog, steam, rain mist, wet reflections, dust, smoke haze, foreground bokeh, edge light, or ground texture before adding new subject objects.
+- For large props, vehicles, architecture, machines, or set pieces that are not the main subject, assign a spatial or narrative function: light source, scale reference, background anchor, blocking device, or story clue.
+- For rear or side characters, give a ground/contact anchor and relation to a set piece, wall, vehicle, stair, doorway, or shadow plane so they do not become floating cutouts.
+- Character actions must fit wardrobe structure and role temperament. Avoid gestures that imply unwanted meanings; if an action reads wrong, replace it with posture, gaze, stance, walking direction, grip, or blocking.
+- If interaction feels weak, revise gaze, body orientation, distance, overlap, shared threat direction, and event chain, not only facial expression.
 
 ## Platform-Ready Prompt
 
@@ -133,9 +172,11 @@ This is the only block intended for direct use on image-generation platforms.
 Rules:
 
 - Keep only image-generation instructions.
+- State the chosen aspect ratio near the beginning, defaulting to `2:3 竖版海报比例` for normal poster bases.
+- Do not specify pixel dimensions unless the user explicitly asks for exact size.
 - Do not include workflow labels, versioning, task names, direction names, routing judgments, or reference-strategy metadata.
 - Do not include JSON keys or explanatory headers.
-- Merge the useful parts of `Chinese Complete Prompt`, title instructions if needed, and negative constraints into one clean prompt block.
+- Merge the useful visual constraints, title instructions if needed, and negative constraints into one clean prompt block. Do not require a separate `Chinese Complete Prompt` first.
 - Do not include assistant/user dialogue residue or explanation language.
 - Ban phrases like `你给的`, `你提供的`, `参考你提供的`, `如果你要`, `我可以`, `下面给你`, `应该改成`, `视觉上让人一眼明白`, `这是XX设定`, `这一版`, `再给你一版`, `改为`, `改成`, `保持为`, `参考示例图`, `按示例图`.
 - Do not include image filenames, attachment names, local paths, numbered file references, or raw reference labels in platform-ready prompts.
@@ -170,6 +211,20 @@ Visual-weight writing rules:
 - If the user says a role is a selling point, make that role readable through shot size, face clarity, focus, light, and foreground/midground placement.
 - If two roles must share visual importance, state that they are in the same or comparable shot size and neither is pushed into background blur.
 - Keep small foreground mascots, props, or memory points readable without stealing the main human-character focus unless the user says otherwise.
+
+Precision-control language examples:
+
+```text
+四名角色都位于主群像中，主角在前中景最大最清晰，其余角色按前后层级围绕主角，不出现可选背景人物。
+
+画面为 2:3 竖版海报比例，采用稍低机位和轻微倾斜镜头，人物、地面反光、背景符号和建筑边线服从同一透视与消失线。
+
+大型背景符号位于人物后方上半区，具有轻微厚度、空间雾遮挡和边缘散光，可与人物头部局部重叠，但亮度和清晰度低于人物脸部。
+
+大型道具位于人物背后作为空间锚点和实际光源，局部可见，不做完整广告式展示，其灯光从后方勾出人物轮廓并落在潮湿地面。
+
+标题安全区只保留窄幅干净区域，下半部仍有前景雾气、湿地反光、暗部细节和失焦灯斑，不形成整片死黑。
+```
 
 Bad example:
 
@@ -207,7 +262,8 @@ Recommended note above the block:
 ## Workflow JSON
 
 This block is for humans and agents, not for direct image-platform input.
-For beginner-facing output, it should be treated as optional advanced info and collapsed/folded by default whenever the surface supports that behavior.
+Do not include this block in normal user-facing poster prompt output.
+Only output it when the user explicitly asks for workflow, JSON, structured handoff, agent handoff, recap/debug metadata, or case-summary support.
 
 Always put a warning label immediately above it:
 
@@ -215,10 +271,10 @@ Always put a warning label immediately above it:
 工作流 JSON（不要直接用于生图平台）：
 ```
 
-Recommended display note:
+Recommended display note when explicitly requested:
 
 ```markdown
-工作流 JSON（默认折叠，可选查看）：
+工作流 JSON（仅供 agent/复盘，不用于生图平台）：
 - 仅用于复盘、定向改词、agent 续改
 - 不要直接用于生图平台
 ```
@@ -298,7 +354,7 @@ Suggested output note after JSON:
 ```markdown
 使用说明：
 - 直接投喂生图平台时，只使用“平台投喂版 Prompt”
-- “工作流 JSON”默认折叠，仅用于存档、复盘、二次编辑或 agent 间传递
+- “工作流 JSON”仅用于存档、复盘、二次编辑或 agent 间传递，正常对话默认不显示
 - 平台投喂版 Prompt 默认控制在 1900 字以内
 ```
 

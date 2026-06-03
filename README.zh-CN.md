@@ -7,8 +7,8 @@
 这个 skill 主要解决：
 
 - 短剧海报方向策划
-- 中文完整提示词生成
-- 用于复盘和二次编辑的工作流 JSON
+- 平台直投版中文提示词生成
+- 按需输出中文完整提示词和用于复盘、二次编辑的工作流 JSON
 - 基于现有海报的整图重绘指令
 - 写实、半写实插画、动漫卡通、类 3D 动漫等风格分支
 - 支持带标题成图与中文字体排版规则
@@ -33,7 +33,7 @@
 - 支持 `写实电影感 / 半写实插画 / 动漫卡通 / 类3D动漫`
 - 支持“无字底图”和“直接带标题成图”两种输出方式
 - 支持 `1人 / 2人 / 3人 / 4-6人 / 大群像` 的不同构图逻辑
-- 输出中文完整提示词、平台投喂版 Prompt 和工作流 JSON
+- 默认输出干净的平台投喂版 Prompt；用户需要时再输出中文完整提示词和工作流 JSON
 - 支持“保留人物关系，整图重做”的改图型需求
 - 内置短剧海报质检规则，方便最后做验收
 
@@ -79,12 +79,12 @@ cp -R /absolute/path/to/short-drama-poster ~/.codex/skills/short-drama-poster
 - “我要卡通版 / 动漫版 / 类 3D 动漫版”
 - “我要直接带字的短剧封面”
 - “根据这张海报整图重绘，保留人物关系”
-- “给我一个中文完整 prompt、平台投喂词和工作流 JSON”
+- “给我一个可直接投喂平台的短剧海报 prompt”
 
 典型调用方式：
 
 ```text
-Use short-drama-poster to turn this script into 3 poster directions, then give me one Chinese complete prompt, one platform-ready prompt, and one collapsed Workflow JSON.
+Use short-drama-poster to turn this script into 3 poster directions, then give me the recommended direction and one platform-ready prompt.
 ```
 
 如果想直接指定风格：
@@ -99,11 +99,13 @@ Use short-drama-poster. Make it a 3D anime commercial poster with a strong two-p
 
 1. 3 个海报方向
 2. 推荐方向及理由
-3. 中文完整提示词
-4. 平台投喂版 Prompt
-5. 工作流 JSON（默认折叠，不要直接用于生图平台）
-6. 负向约束
-7. 质检清单
+3. 平台投喂版 Prompt
+4. 负向约束
+5. 质检清单
+
+普通用户对话默认不显示工作流 JSON。只有用户明确要求 workflow、JSON、结构化交接、agent 续改、复盘或调试元信息时才输出。
+
+普通用户对话默认不显示中文完整提示词。只有用户明确要求完整说明、方案评审、方向解释或交给其他 AI 理解时才输出。
 
 如果用户明确要“带标题成图”，输出里还应包含标题层说明或直接带字版本扩展。
 
@@ -125,7 +127,7 @@ Use short-drama-poster. Make it a 3D anime commercial poster with a strong two-p
 - 用户明确要求时，也支持直接输出带标题成图规则，且默认只放剧名，副标题等附加文字需要主动要求
 - 如果有角色三视图，设定一致性优先于风格创意
 - 多人海报里不应该让每张脸都拥有同等视觉权重
-- 面向小白用户时，优先展示“平台投喂版 Prompt”；工作流 JSON 应作为默认折叠的附加信息
+- 面向小白用户时，优先展示“平台投喂版 Prompt”；除非用户明确要求，否则不显示工作流 JSON
 - 平台投喂版 Prompt 必须是纯画面指令，不能混入“你给的”“如果你要”“我可以再给你一版”这类对话污染
 - 复盘模式下必须只输出轻量复盘、阶段复盘或统一格式的 Case Summary，不继续生成新海报方案
 - 复盘结论必须区分通用规则、条件分支规则和案例备注，不要把单个案例的具体设定直接写成全局规则

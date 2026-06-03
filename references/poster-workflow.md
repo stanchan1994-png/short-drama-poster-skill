@@ -8,6 +8,7 @@ Collect only what is needed:
 - 剧本/剧情梗概: prioritize conflict, relationship, reversal, and setting.
 - 风格方向: urban, revenge, romance, CEO/power, ancient costume, fantasy, family, suspense, etc.
 - 风格模式: realistic, semi-realistic illustration, anime/cartoon, or 3D anime.
+- 画幅比例: default to 2:3 vertical poster for normal poster bases unless the user specifies another ratio or platform format.
 - 角色三视图: primary character-design references; ask which turnaround belongs to which role.
 - 风格/构图参考图: visual language references only; use for framing and finish, not for copying text or people.
 - 动作/关系参考图: pose, motion, impact, force direction, and hierarchy references only; use for staging, not for copying identity or visual design.
@@ -40,6 +41,13 @@ If the user asks for outpainting, aspect-ratio conversion, horizontal/vertical e
 - extend only edge environment, background, atmosphere, and negative space unless the user explicitly asks to redraw the subject
 - state the target ratio explicitly
 - forbid new main subjects, face redesign, costume redesign, pose change, and center shift unless requested
+
+For normal poster-base generation, use `2:3 竖版海报比例` by default:
+
+- state the ratio in the complete prompt and platform-ready prompt
+- do not state pixel dimensions unless the user asks for exact size
+- if the user specifies 7:10, 3:4, 4:3, 9:16, 16:9, banner, platform-specific cover, or another ratio, use the specified ratio instead
+- avoid ultra-narrow vertical frames, phone long-screenshot proportions, or ratios taller than 1:2 unless explicitly requested
 
 If character turnarounds are provided, add a short role-binding block before directions:
 
@@ -114,6 +122,7 @@ Even if the user finally wants only one prompt, generate three directions first 
 The prompt must describe visible image content, not abstract adjectives. Include:
 
 - Format: Chinese short-drama commercial poster base, plus the chosen style mode.
+- Aspect ratio: default 2:3 vertical poster ratio unless user-specified.
 - Characters: role count, hierarchy, posture, expression, wardrobe, face readability.
 - Composition: shot size, camera angle, foreground/midground/background.
 - Scene: location, time, props, spatial pressure.
